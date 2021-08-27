@@ -106,34 +106,4 @@ public class FlowLayoutRenderer_Test extends AbstractWebXmlRendererTestCase {
 			assertXpathEvaluatesTo(GAP.toString(), "//ui:panel/ui:flowlayout/@gap", panel);
 		}
 	}
-
-	// Test that use of deprecated two-gap constructors output the expected gap
-	@Test
-	public void testHVGaps() throws IOException, SAXException, XpathException {
-		WPanel panel = new WPanel();
-		String expected;
-
-		for (FlowLayout.Alignment a : FlowLayout.Alignment.values()) {
-			panel.setLayout(new FlowLayout(a, 3, 16));
-			assertSchemaMatch(panel);
-			expected = a == FlowLayout.VERTICAL ? BIG_GAP.toString() : GAP.toString();
-			assertXpathEvaluatesTo(expected, "//ui:panel/ui:flowlayout/@gap", panel);
-		}
-	}
-
-	@Test
-	public void testHVGapsWithContentAlign() throws IOException, SAXException, XpathException {
-		WPanel panel = new WPanel();
-		String expected;
-
-		for (FlowLayout.Alignment a : FlowLayout.Alignment.values()) {
-			for (FlowLayout.ContentAlignment c : FlowLayout.ContentAlignment.values()) {
-				panel.setLayout(new FlowLayout(a, 3, 16, c));
-				assertSchemaMatch(panel);
-				expected = a == FlowLayout.VERTICAL ? BIG_GAP.toString() : GAP.toString();
-				assertXpathEvaluatesTo(expected, "//ui:panel/ui:flowlayout/@gap", panel);
-			}
-		}
-	}
-
 }
