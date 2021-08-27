@@ -42,7 +42,6 @@ public class AllComponents extends WApplication {
 		add(createAjaxControl());
 		add(new WAjaxPollingRegion(123));
 		add(new WAudio());
-		add(new WBeanContainer());
 		add(new WButton("Button text"));
 		add(new WCancelButton());
 		add(new WCardManager());

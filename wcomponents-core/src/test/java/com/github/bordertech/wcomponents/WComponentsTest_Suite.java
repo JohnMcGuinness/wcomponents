@@ -87,7 +87,6 @@ import org.junit.runners.Suite;
 	WApplication_Test.class,
 	WAudio_Test.class,
 	WBeanComponent_Test.class,
-	WBeanContainer_Test.class,
 	WButton_Test.class,
 	WCancelButton_Test.class,
 	WCardManager_Test.class,
