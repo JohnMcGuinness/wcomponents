@@ -2,7 +2,6 @@ package com.github.bordertech.wcomponents;
 
 import com.github.bordertech.wcomponents.MenuSelectContainer.SelectionMode;
 import com.github.bordertech.wcomponents.WMenu.MenuType;
-import com.github.bordertech.wcomponents.WMenu.SelectMode;
 import com.github.bordertech.wcomponents.util.mock.MockRequest;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,12 +42,6 @@ public class WMenu_Test extends AbstractWComponentTestCase {
 	}
 
 	@Test
-	public void testSelectModeAccessors() {
-		assertAccessorsCorrect(new WMenu(), WMenu::getSelectMode, WMenu::setSelectMode,
-			SelectMode.NONE, SelectMode.MULTIPLE, SelectMode.SINGLE);
-	}
-
-	@Test
 	public void testSelectionModeAccessors() {
 		assertAccessorsCorrect(new WMenu(), WMenu::getSelectionMode, WMenu::setSelectionMode,
 			MenuSelectContainer.SelectionMode.NONE, SelectionMode.MULTIPLE, SelectionMode.SINGLE);
@@ -63,7 +56,7 @@ public class WMenu_Test extends AbstractWComponentTestCase {
 	public void testAddSeparator1() {
 		WMenu menuBar = new WMenu();
 		menuBar.addSeparator();
-		Assert.assertTrue("Menu should contain a seperator", menuBar.getMenuItems().get(0) instanceof WSeparator);
+		Assert.assertTrue("Menu should contain a separator", menuBar.getMenuItems().get(0) instanceof WSeparator);
 	}
 
 	@Test

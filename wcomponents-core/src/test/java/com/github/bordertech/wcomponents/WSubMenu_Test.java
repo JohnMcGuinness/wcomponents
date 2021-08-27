@@ -197,13 +197,13 @@ public class WSubMenu_Test extends AbstractWComponentTestCase {
 	@Test
 	public void testGetAccessKeyAsString() {
 		WSubMenu subMenu = new WSubMenu("");
-		Assert.assertNull("Incorrect default acesskey as string", subMenu.getAccessKeyAsString());
+		Assert.assertNull("Incorrect default accesskey as string", subMenu.getAccessKeyAsString());
 
 		subMenu.setAccessKey('C');
-		Assert.assertEquals("Incorrect user set acesskey as string", "C", subMenu.getAccessKeyAsString());
+		Assert.assertEquals("Incorrect user set accesskey as string", "C", subMenu.getAccessKeyAsString());
 
 		subMenu.setAccessKey('\0');
-		Assert.assertNull("Incorrect reset acesskey as string", subMenu.getAccessKeyAsString());
+		Assert.assertNull("Incorrect reset accesskey as string", subMenu.getAccessKeyAsString());
 	}
 
 	@Test
@@ -214,17 +214,6 @@ public class WSubMenu_Test extends AbstractWComponentTestCase {
 	@Test
 	public void testSelectabilityAccessors() {
 		assertAccessorsCorrect(new WSubMenu(TEST_TEXT), WSubMenu::getSelectability, WSubMenu::setSelectability, null, Boolean.TRUE, Boolean.FALSE);
-	}
-
-	@Test
-	public void testMultipleSelectionAccessors() {
-		assertAccessorsCorrect(new WSubMenu(TEST_TEXT), WSubMenu::isMultipleSelection, WSubMenu::setMultipleSelection, false, true, false);
-	}
-
-	@Test
-	public void testSelectModeAccessors() {
-		assertAccessorsCorrect(new WSubMenu(TEST_TEXT), WSubMenu::getSelectMode, WSubMenu::setSelectMode,
-			WMenu.SelectMode.NONE, WMenu.SelectMode.MULTIPLE, WMenu.SelectMode.SINGLE);
 	}
 
 	@Test

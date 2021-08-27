@@ -40,28 +40,7 @@ public class WMenu extends AbstractNamingContextContainer implements Disableable
 		 * and sub-menus.
 		 */
 		COLUMN
-	};
-
-	/**
-	 * The available types of selection mode for the items in a menu.
-	 *
-	 * @deprecated Use {@link MenuSelectContainer#getSelectionMode()} instead.
-	 */
-	@Deprecated
-	public enum SelectMode {
-		/**
-		 * No items can be selected.
-		 */
-		NONE,
-		/**
-		 * A single item can be selected.
-		 */
-		SINGLE,
-		/**
-		 * Multiple items can be selected.
-		 */
-		MULTIPLE
-	};
+	}
 
 	/**
 	 * The type of menu.
@@ -129,47 +108,6 @@ public class WMenu extends AbstractNamingContextContainer implements Disableable
 	@Override
 	public void setMargin(final Margin margin) {
 		getOrCreateComponentModel().margin = margin;
-	}
-
-	/**
-	 * @return the selection mode of the container
-	 * @deprecated Use {@link #getSelectionMode()} instead.
-	 */
-	@Deprecated
-	public SelectMode getSelectMode() {
-		switch (getSelectionMode()) {
-			case MULTIPLE:
-				return SelectMode.MULTIPLE;
-
-			case SINGLE:
-				return SelectMode.SINGLE;
-			default:
-				return SelectMode.NONE;
-		}
-	}
-
-	/**
-	 * @param selectMode the selection mode for the items in this menu container.
-	 *
-	 * @deprecated Use {@link #setSelectionMode(com.github.bordertech.wcomponents.MenuSelectContainer.SelectionMode)}
-	 * instead.
-	 */
-	@Deprecated
-	public void setSelectMode(final SelectMode selectMode) {
-		if (selectMode == null) {
-			setSelectionMode(null);
-		} else {
-			switch (selectMode) {
-				case MULTIPLE:
-					setSelectionMode(SelectionMode.MULTIPLE);
-					break;
-				case SINGLE:
-					setSelectionMode(SelectionMode.SINGLE);
-					break;
-				default:
-					setSelectionMode(SelectionMode.NONE);
-			}
-		}
 	}
 
 	/**
@@ -296,7 +234,7 @@ public class WMenu extends AbstractNamingContextContainer implements Disableable
 	 * @return the list of menu items
 	 */
 	public List<MenuItem> getMenuItems(final boolean recurse) {
-		List<MenuItem> items = new ArrayList();
+		List<MenuItem> items = new ArrayList<>();
 		getChildMenuItems(items, recurse, this);
 		return Collections.unmodifiableList(items);
 	}

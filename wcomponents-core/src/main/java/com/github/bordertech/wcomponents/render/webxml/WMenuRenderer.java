@@ -68,7 +68,7 @@ final class WMenuRenderer extends AbstractWebXmlRenderer {
 				break;
 
 			default:
-				throw new IllegalStateException("Invalid select mode: " + menu.getSelectMode());
+				throw new IllegalStateException("Invalid select mode: " + menu.getSelectionMode());
 		}
 
 		xml.appendClose();

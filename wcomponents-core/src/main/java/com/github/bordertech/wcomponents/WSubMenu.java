@@ -1,6 +1,5 @@
 package com.github.bordertech.wcomponents;
 
-import com.github.bordertech.wcomponents.WMenu.SelectMode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -326,58 +325,6 @@ public class WSubMenu extends AbstractNamingContextContainer implements Disablea
 	@Override
 	public boolean isSelectAllowed() {
 		return false;
-	}
-
-	/**
-	 * @return Returns the multipleSelection.
-	 * @deprecated Use {{@link com.github.bordertech.wcomponents.MenuSelectContainer#getSelectionMode()}.
-	 */
-	@Deprecated
-	public boolean isMultipleSelection() {
-		return SelectionMode.MULTIPLE.equals(getSelectionMode());
-	}
-
-	/**
-	 * @param multipleSelection The multipleSelection to set.
-	 * @deprecated Use {@link com.github.bordertech.wcomponents.MenuSelectContainer#setSelectionMode(SelectionMode)}.
-	 */
-	@Deprecated
-	public void setMultipleSelection(final boolean multipleSelection) {
-		setSelectionMode(multipleSelection ? SelectionMode.MULTIPLE : SelectionMode.NONE);
-	}
-
-	/**
-	 * @return the selection mode of the container
-	 * @deprecated Use {@link com.github.bordertech.wcomponents.MenuSelectContainer#getSelectionMode()} instead.
-	 */
-	public SelectMode getSelectMode() {
-		switch (getSelectionMode()) {
-			case MULTIPLE:
-				return SelectMode.MULTIPLE;
-			case SINGLE:
-				return SelectMode.SINGLE;
-			default:
-				return SelectMode.NONE;
-		}
-	}
-
-	/**
-	 * @param selectMode the selection mode for the items in this menu container.
-	 *
-	 * @deprecated Use {@link com.github.bordertech.wcomponents.MenuSelectContainer#setSelectionMode(SelectionMode)}
-	 * instead.
-	 */
-	public void setSelectMode(final SelectMode selectMode) {
-		switch (selectMode) {
-			case MULTIPLE:
-				setSelectionMode(SelectionMode.MULTIPLE);
-				break;
-			case SINGLE:
-				setSelectionMode(SelectionMode.SINGLE);
-				break;
-			default:
-				setSelectionMode(SelectionMode.NONE);
-		}
 	}
 
 	/**

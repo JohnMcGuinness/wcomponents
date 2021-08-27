@@ -2,7 +2,6 @@ package com.github.bordertech.wcomponents.render.webxml;
 
 import com.github.bordertech.wcomponents.MenuSelectContainer.SelectionMode;
 import com.github.bordertech.wcomponents.WMenu;
-import com.github.bordertech.wcomponents.WMenu.SelectMode;
 import com.github.bordertech.wcomponents.WMenuItem;
 import com.github.bordertech.wcomponents.WSubMenu;
 import java.io.IOException;
@@ -131,17 +130,6 @@ public class WSubMenuRenderer_Test extends AbstractWebXmlRendererTestCase {
 		assertSchemaMatch(menu);
 		assertXpathNotExists("//ui:submenu/@selectMode", menu);
 		subMenu.setSelectionMode(SelectionMode.MULTIPLE);
-		assertSchemaMatch(menu);
-		assertXpathNotExists("//ui:submenu/@selectMode", menu);
-	}
-
-	@Test
-	public void testUnusedSelectMode() throws IOException, SAXException, XpathException {
-		// SelectMode no longer written.
-		subMenu.setSelectMode(SelectMode.SINGLE);
-		assertSchemaMatch(menu);
-		assertXpathNotExists("//ui:submenu/@selectMode", menu);
-		subMenu.setSelectMode(SelectMode.MULTIPLE);
 		assertSchemaMatch(menu);
 		assertXpathNotExists("//ui:submenu/@selectMode", menu);
 	}

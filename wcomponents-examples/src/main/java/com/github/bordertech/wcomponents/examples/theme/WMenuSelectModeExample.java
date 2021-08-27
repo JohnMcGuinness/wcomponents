@@ -16,7 +16,7 @@ import com.github.bordertech.wcomponents.WFieldLayout;
 import com.github.bordertech.wcomponents.WHeading;
 import com.github.bordertech.wcomponents.WMenu;
 import com.github.bordertech.wcomponents.WMenu.MenuType;
-import com.github.bordertech.wcomponents.WMenu.SelectMode;
+import com.github.bordertech.wcomponents.MenuSelectContainer.SelectionMode;
 import com.github.bordertech.wcomponents.WMenuItem;
 import com.github.bordertech.wcomponents.WMenuItemGroup;
 import com.github.bordertech.wcomponents.WPanel;
@@ -28,7 +28,7 @@ import com.github.bordertech.wcomponents.subordinate.builder.SubordinateBuilder;
 import java.util.List;
 
 /**
- * Example showing how SelectMode can be used on {@link WMenu}.
+ * Example showing how SelectionMode can be used on {@link WMenu}.
  *
  * @author Jonathan Austin
  * @since 1.0.0
@@ -92,17 +92,17 @@ public class WMenuSelectModeExample extends WContainer {
 		private final WMenuItemGroup grp3 = new WMenuItemGroup("G3 - Group3");
 
 		/**
-		 * Drop1 - Select Mode.
+		 * Drop1 - Selection Mode.
 		 */
-		private final WDropdown drop1 = new WDropdown(WMenu.SelectMode.values());
+		private final WDropdown drop1 = new WDropdown(WMenu.SelectionMode.values());
 		/**
-		 * Drop2 - Select Mode.
+		 * Drop2 - Selection Mode.
 		 */
-		private final WDropdown drop2 = new WDropdown(WMenu.SelectMode.values());
+		private final WDropdown drop2 = new WDropdown(WMenu.SelectionMode.values());
 		/**
-		 * Drop3 - Select Mode.
+		 * Drop3 - Selection Mode.
 		 */
-		private final WDropdown drop3 = new WDropdown(WMenu.SelectMode.values());
+		private final WDropdown drop3 = new WDropdown(WMenu.SelectionMode.values());
 
 		/**
 		 * Group 1 - Item 1.
@@ -245,19 +245,19 @@ public class WMenuSelectModeExample extends WContainer {
 			drop1.setActionOnChange(new Action() {
 				@Override
 				public void execute(final ActionEvent event) {
-					menu.setSelectMode((SelectMode) drop1.getSelected());
+					menu.setSelectionMode((SelectionMode) drop1.getSelected());
 				}
 			});
 			drop2.setActionOnChange(new Action() {
 				@Override
 				public void execute(final ActionEvent event) {
-					sub1.setSelectMode((SelectMode) drop2.getSelected());
+					sub1.setSelectionMode((SelectionMode) drop2.getSelected());
 				}
 			});
 			drop3.setActionOnChange(new Action() {
 				@Override
 				public void execute(final ActionEvent event) {
-					sub2.setSelectMode((SelectMode) drop3.getSelected());
+					sub2.setSelectionMode((SelectionMode) drop3.getSelected());
 				}
 			});
 
@@ -297,9 +297,9 @@ public class WMenuSelectModeExample extends WContainer {
 		protected void preparePaintComponent(final Request request) {
 			if (!isInitialised()) {
 				typeText.setText(menu.getType().toString());
-				menu.setSelectMode((SelectMode) drop1.getSelected());
-				sub1.setSelectMode((SelectMode) drop2.getSelected());
-				sub2.setSelectMode((SelectMode) drop3.getSelected());
+				menu.setSelectionMode((SelectionMode) drop1.getSelected());
+				sub1.setSelectionMode((SelectionMode) drop2.getSelected());
+				sub2.setSelectionMode((SelectionMode) drop3.getSelected());
 				setInitialised(true);
 			}
 
@@ -309,7 +309,7 @@ public class WMenuSelectModeExample extends WContainer {
 		}
 
 		/**
-		 * Setup the field and subordinate control for the configuration options.
+		 * Set up the field and subordinate control for the configuration options.
 		 *
 		 * @param layout the field layout
 		 * @param box the checkBox used as the trigger
