@@ -82,20 +82,6 @@ public class ColumnLayout_Test {
 		Assert.assertEquals("Incorrect VGAP", BIG_GAP, layout.getVerticalGap());
 	}
 
-	@Test
-	public void testDeprecatedIntAlignGapConstructor() {
-		final int[] cols = new int[]{100};
-		final ColumnLayout.Alignment[] align = new ColumnLayout.Alignment[]{ColumnLayout.Alignment.RIGHT};
-
-		ColumnLayout layout = new ColumnLayout(cols, align, INT_GAP, INT_BIG_GAP);
-		Assert.assertEquals("Incorrect column count", 1, layout.getColumnCount());
-		Assert.assertEquals("Incorrect column width", 100, layout.getColumnWidth(0));
-		Assert.assertEquals("Incorrect column alignment", ColumnLayout.Alignment.RIGHT, layout.
-				getColumnAlignment(0));
-		Assert.assertEquals("Incorrect HGAP", GAP, layout.getHorizontalGap());
-		Assert.assertEquals("Incorrect VGAP", BIG_GAP, layout.getVerticalGap());
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testNullCols() {
 		new ColumnLayout(null);
