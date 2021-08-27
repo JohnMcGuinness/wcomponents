@@ -54,13 +54,6 @@ public class WHeadingRenderer_Test extends AbstractWebXmlRendererTestCase {
 		heading = new WHeading(HeadingLevel.H6, text);
 		assertSchemaMatch(heading);
 		assertXpathEvaluatesTo(text, "//ui:heading[@level=6]", heading);
-
-		try {
-			heading = new WHeading(123456, text);
-			Assert.fail("Should have thrown a SystemException");
-		} catch (IllegalArgumentException expected) {
-			Assert.assertNotNull("Thrown exception should contain a message", expected.getMessage());
-		}
 	}
 
 	@Test

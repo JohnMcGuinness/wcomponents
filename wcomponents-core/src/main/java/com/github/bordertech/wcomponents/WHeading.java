@@ -11,83 +11,9 @@ import java.util.List;
 public class WHeading extends WText implements Container, AjaxTarget, Marginable {
 
 	/**
-	 * TITLE Heading - Level 1.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int TITLE = 1;
-	/**
-	 * MAJOR Heading - Level 2.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int MAJOR = 2;
-	/**
-	 * SECTION Heading - Level 3.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int SECTION = 3;
-	/**
-	 * MINOR Heading - Level 4.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int MINOR = 4;
-	/**
-	 * SUB Heading - Level 5.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int SUB_HEADING = 5;
-	/**
-	 * SUB_SUB Heading - Level 6.
-	 *
-	 * @deprecated Use {@link HeadingLevel} instead
-	 */
-	@Deprecated
-	public static final int SUB_SUB_HEADING = 6;
-
-	/**
 	 * The label for the heading.
 	 */
 	private final WDecoratedLabel label;
-
-	/**
-	 * Creates a WHeading.
-	 *
-	 * @param type the heading type, one of: {@link #TITLE}, {@link #MAJOR}, {@link #SECTION}, {@link #MINOR},
-	 *            {@link #SUB_HEADING}, {@link #SUB_SUB_HEADING}
-	 * @param text the heading text
-	 * @deprecated Use {@link #WHeading(HeadingLevel, String)} instead.
-	 */
-	@Deprecated
-	public WHeading(final int type, final String text) {
-		super(text);
-		this.label = null;
-		setHeadingLevel(convertHeadingType(type));
-	}
-
-	/**
-	 * Creates a WHeading.
-	 *
-	 * @param type the heading type, one of: {@link #TITLE}, {@link #MAJOR}, {@link #SECTION}, {@link #MINOR},
-	 *            {@link #SUB_HEADING}, {@link #SUB_SUB_HEADING}
-	 * @param label the heading
-	 * @deprecated Use {@link #WHeading(HeadingLevel, WDecoratedLabel)} instead.
-	 */
-	@Deprecated
-	public WHeading(final int type, final WDecoratedLabel label) {
-		this.label = label;
-		add(label);
-		setupLabel();
-		setHeadingLevel(convertHeadingType(type));
-	}
 
 	/**
 	 * Creates a WHeading.
@@ -115,21 +41,7 @@ public class WHeading extends WText implements Container, AjaxTarget, Marginable
 	}
 
 	/**
-	 * @param type the heading level type
-	 * @return the heading level
-	 */
-	private HeadingLevel convertHeadingType(final int type) {
-		// Get heading level
-		for (HeadingLevel lvl : HeadingLevel.values()) {
-			if (lvl.getLevel() == type) {
-				return lvl;
-			}
-		}
-		throw new IllegalArgumentException("Unknown heading type: " + type);
-	}
-
-	/**
-	 * Setup the label.
+	 * Set up the label.
 	 */
 	private void setupLabel() {
 		// To retain compatibility with the WText API, create a WText for this component,
@@ -157,15 +69,6 @@ public class WHeading extends WText implements Container, AjaxTarget, Marginable
 			newBody.add(textBody);
 			newBody.add(oldBody);
 		}
-	}
-
-	/**
-	 * @return the heading type.
-	 * @deprecated use {@link #getHeadingLevel()} instead.
-	 */
-	@Deprecated
-	public int getType() {
-		return getHeadingLevel().getLevel();
 	}
 
 	/**

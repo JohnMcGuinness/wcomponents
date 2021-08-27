@@ -2,6 +2,7 @@ package com.github.bordertech.wcomponents.examples;
 
 import com.github.bordertech.wcomponents.Action;
 import com.github.bordertech.wcomponents.ActionEvent;
+import com.github.bordertech.wcomponents.HeadingLevel;
 import com.github.bordertech.wcomponents.Message;
 import com.github.bordertech.wcomponents.Request;
 import com.github.bordertech.wcomponents.WApplication;
@@ -43,7 +44,7 @@ public class WApplicationExample extends WContainer {
 
 		root.add(messages);
 
-		root.add(new WHeading(1, "Display unsaved changes warning message"));
+		root.add(new WHeading(HeadingLevel.H1, "Display unsaved changes warning message"));
 		root.add(msg);
 
 		// Setup Links to navigate away from page
