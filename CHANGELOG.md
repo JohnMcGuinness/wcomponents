@@ -3,7 +3,14 @@
 ## Release in-progress
 
 ### API Changes
-* Add addAll method to MutableContainer and subclasses
+* Removed deprecated APIs:
+  * Removed WBeanContainer
+  * Removed int constant heading levels from WHeading
+  * Removed int gaps from FlowLayout
+  * Removed int gaps from ColumnLayout
+  * Removed WMenu.SelectMode
+  * Removed WProgressBar.UnitType
+
 
 ### Enhancements
 ### Bug Fixes
