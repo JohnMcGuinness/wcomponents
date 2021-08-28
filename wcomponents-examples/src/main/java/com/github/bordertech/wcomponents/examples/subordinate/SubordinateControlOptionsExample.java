@@ -19,7 +19,6 @@ import com.github.bordertech.wcomponents.WComponentGroup;
 import com.github.bordertech.wcomponents.WContainer;
 import com.github.bordertech.wcomponents.WDateField;
 import com.github.bordertech.wcomponents.WDropdown;
-import com.github.bordertech.wcomponents.WDropdown.DropdownType;
 import com.github.bordertech.wcomponents.WEmailField;
 import com.github.bordertech.wcomponents.WField;
 import com.github.bordertech.wcomponents.WFieldLayout;
@@ -462,8 +461,6 @@ public class SubordinateControlOptionsExample extends WContainer {
 		comboField.setInputWidth(100);
 		dateField.setInputWidth(100);
 		numberField.setInputWidth(100);
-
-		comboCompareValue.setType(DropdownType.COMBO);
 
 		WAjaxControl ajax = new WAjaxControl(drpTriggerType, configLayout);
 		add(ajax);

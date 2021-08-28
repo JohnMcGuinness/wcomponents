@@ -45,29 +45,14 @@ final class WDropdownRenderer extends AbstractWebXmlRenderer {
 			xml.appendOptionalAttribute("submitOnChange", dropdown.isSubmitOnChange(), "true");
 			xml.appendOptionalAttribute("toolTip", dropdown.getToolTip());
 			xml.appendOptionalAttribute("accessibleText", dropdown.getAccessibleText());
-			int optionWidth = dropdown.getOptionWidth();
-			xml.appendOptionalAttribute("optionWidth", optionWidth > 0, optionWidth);
 			String autocomplete = dropdown.getAutocomplete();
 			xml.appendOptionalAttribute("autocomplete", !Util.empty(autocomplete), autocomplete);
-			xml.appendOptionalAttribute("type", getTypeAsString(dropdown.getType()));
 		}
 		xml.appendClose();
 
 		// Options
 		List<?> options = dropdown.getOptions();
 		Object selectedOption = dropdown.getSelected();
-
-		// For an editable dropdown (combo box), the selected option may not be in the list.
-		if (dropdown.getType() == WDropdown.DropdownType.COMBO
-				&& selectedOption != null
-				&& (options == null || !options.contains(selectedOption))) {
-			xml.appendTagOpen("ui:option");
-			xml.appendAttribute("value", selectedOption.toString());
-			xml.appendAttribute("selected", "true");
-			xml.appendClose();
-			xml.appendEscaped(selectedOption.toString());
-			xml.appendEndTag("ui:option");
-		}
 
 		if (options != null) {
 			int optionIndex = 0;
@@ -130,27 +115,6 @@ final class WDropdownRenderer extends AbstractWebXmlRenderer {
 			html.appendClose();
 			html.appendEscaped(desc);
 			html.appendEndTag("ui:option");
-		}
-	}
-
-	/**
-	 * Determines the theme tabset type name for the given TabSetType.
-	 *
-	 * @param type the TabSetType
-	 * @return the theme tabset type name for the given TabSetType.
-	 */
-	public static String getTypeAsString(final WDropdown.DropdownType type) {
-		if (type == null) {
-			return null;
-		}
-
-		switch (type) {
-			case NATIVE:
-				return null;
-			case COMBO:
-				return "combo";
-			default:
-				throw new IllegalStateException("Invalid dropdown type: " + type);
 		}
 	}
 }

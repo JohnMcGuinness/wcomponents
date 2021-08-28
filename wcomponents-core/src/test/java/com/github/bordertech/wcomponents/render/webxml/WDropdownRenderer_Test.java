@@ -6,7 +6,6 @@ import com.github.bordertech.wcomponents.TestLookupTable;
 import com.github.bordertech.wcomponents.UIContext;
 import com.github.bordertech.wcomponents.UIContextImpl;
 import com.github.bordertech.wcomponents.WDropdown;
-import com.github.bordertech.wcomponents.WDropdown.DropdownType;
 import com.github.bordertech.wcomponents.autocomplete.AutocompleteUtil;
 import com.github.bordertech.wcomponents.autocomplete.segment.Person;
 import java.io.IOException;
@@ -124,10 +123,6 @@ public class WDropdownRenderer_Test extends AbstractWebXmlRendererTestCase {
 		assertSchemaMatch(drop);
 		assertXpathEvaluatesTo(drop.getAccessibleText(), "//ui:dropdown/@accessibleText", drop);
 
-		drop.setOptionWidth(20);
-		assertSchemaMatch(drop);
-		assertXpathEvaluatesTo("20", "//ui:dropdown/@optionWidth", drop);
-
 		drop.setAutocomplete(Person.GIVEN);
 		assertSchemaMatch(drop);
 		assertXpathEvaluatesTo(drop.getAutocomplete(), "//ui:dropdown/@autocomplete", drop);
@@ -135,14 +130,6 @@ public class WDropdownRenderer_Test extends AbstractWebXmlRendererTestCase {
 		drop.setAutocompleteOff();
 		assertSchemaMatch(drop);
 		assertXpathEvaluatesTo(AutocompleteUtil.getOff(), "//ui:dropdown/@autocomplete", drop);
-	}
-
-	@Test
-	public void testDoPaintTypeOptions() throws IOException, SAXException, XpathException {
-		WDropdown drop = new WDropdown(TestLookupTable.CACHEABLE_DAY_OF_WEEK_TABLE);
-		drop.setType(DropdownType.COMBO);
-		assertSchemaMatch(drop);
-		assertXpathEvaluatesTo("combo", "//ui:dropdown/@type", drop);
 	}
 
 	@Test
@@ -228,26 +215,6 @@ public class WDropdownRenderer_Test extends AbstractWebXmlRendererTestCase {
 						drop);
 			}
 		}
-	}
-
-	@Test
-	public void testEditableComboOption() throws IOException, SAXException, XpathException {
-		String[] options = new String[]{"A", "B", "C"};
-
-		WDropdown drop = new WDropdown(options);
-		drop.setType(WDropdown.DropdownType.COMBO);
-		assertSchemaMatch(drop);
-		assertXpathEvaluatesTo("3", "count(//ui:dropdown/ui:option)", drop);
-		assertXpathEvaluatesTo("1", "count(//ui:option[@selected='true'])", drop);
-		assertXpathExists("//ui:dropdown/ui:option[text()='A'][@selected='true']", drop);
-
-		// Set a new selection which is not in the list.
-		drop.setSelected("D");
-
-		assertSchemaMatch(drop);
-		assertXpathEvaluatesTo("4", "count(//ui:dropdown/ui:option)", drop);
-		assertXpathEvaluatesTo("1", "count(//ui:option[@selected='true'])", drop);
-		assertXpathExists("//ui:dropdown/ui:option[text()='D'][@selected='true']", drop);
 	}
 
 	@Test

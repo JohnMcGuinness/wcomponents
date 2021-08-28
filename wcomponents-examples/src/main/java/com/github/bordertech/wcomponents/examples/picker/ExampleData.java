@@ -38,7 +38,6 @@ import com.github.bordertech.wcomponents.examples.WDataListServletExample;
 import com.github.bordertech.wcomponents.examples.WDefinitionListExample;
 import com.github.bordertech.wcomponents.examples.WDialogExample;
 import com.github.bordertech.wcomponents.examples.WDropdownExample;
-import com.github.bordertech.wcomponents.examples.WDropdownOptionsExample;
 import com.github.bordertech.wcomponents.examples.WDropdownSpaceHandlingExample;
 import com.github.bordertech.wcomponents.examples.WDropdownSpecialCharHandlingExample;
 import com.github.bordertech.wcomponents.examples.WDropdownSubmitOnChangeExample;
@@ -243,7 +242,6 @@ public final class ExampleData implements Serializable {
 		new ExampleData("Dropdown (submit on change)", WDropdownSubmitOnChangeExample.class),
 		new ExampleData("Dropdown (space handling)", WDropdownSpaceHandlingExample.class),
 		new ExampleData("Dropdown (special char handling)", WDropdownSpecialCharHandlingExample.class),
-		new ExampleData("Dropdown configuration options", WDropdownOptionsExample.class),
 		new ExampleData("Email field", WEmailFieldExample.class),
 		new ExampleData("File upload (simple)", SimpleFileUpload.class),
 		new ExampleData("Labels", WLabelExample.class),

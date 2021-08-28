@@ -52,7 +52,7 @@ public class WDropdownExample extends WContainer {
 			"e long option has some content which should be longer than the with of a mobile viewport",
 			"f long option has some content which should be longer than the with of a mobile viewport",
 			"g long option has some content which should be longer than the with of a mobile viewport",
-			"h long option has some content which should be longer than the with of a mobile viewporth",
+			"h long option has some content which should be longer than the with of a mobile viewport",
 			"i long option has some content which should be longer than the with of a mobile viewport",
 			"j long option has some content which should be longer than the with of a mobile viewport"};
 
@@ -104,11 +104,6 @@ public class WDropdownExample extends WContainer {
 		dropdown = new WDropdown(new Object[]{stringGroup, peopleGroup, "Ungrouped option"});
 		addFieldToLayout(dropdown, "Drop-down with option groups", null);
 
-		dropdown = new WDropdown(OPTIONS_ARRAY);
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		addFieldToLayout(dropdown, "Combo drop-down",
-				"This is an example dropdown which allows user input");
-
 		dropdown = new WDropdown("icao");
 		addFieldToLayout(dropdown, "Drop-down with cached data from a look up table",
 				"see ExampleLookupTable for data");
@@ -122,21 +117,6 @@ public class WDropdownExample extends WContainer {
 		addFieldToLayout(dropdown, "Drop-down with cached data with a custom null option",
 				"see ExampleLookupTable for data");
 
-		dropdown = new WDropdown("icao");
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		addFieldToLayout(dropdown, "Combo with cached data from a look up table",
-				"see ExampleLookupTable for data");
-
-		dropdown = new WDropdown(new TableWithNullOption("icao"));
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		addFieldToLayout(dropdown, "Combo with cached data from a look up table with Null Option",
-				"Null options make no sense in COMBOs");
-
-		dropdown = new WDropdown(new TableWithNullOption("icao", "Select one please"));
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		addFieldToLayout(dropdown, "Combo with cached data with a custom null option",
-				"You probably shouldn't do this since it defeats the purpose of a combo.");
-
 		dropdown = new WDropdown(OPTIONS_ARRAY);
 		dropdown.setDisabled(true);
 		addFieldToLayout(dropdown, "Disabled drop-down", null);
@@ -146,19 +126,9 @@ public class WDropdownExample extends WContainer {
 		dropdown.setDisabled(true);
 		addFieldToLayout(dropdown, "Disabled drop-down with default selection", null);
 
-		dropdown = new WDropdown(OPTIONS_ARRAY);
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		dropdown.setDisabled(true);
-		addFieldToLayout(dropdown, "Disabled combo ", null);
-
 		dropdown = new WDropdown("icao");
 		dropdown.setDisabled(true);
 		addFieldToLayout(dropdown, "Disabled drop-down with cached data from a look up table", null);
-
-		dropdown = new WDropdown("icao");
-		dropdown.setType(WDropdown.DropdownType.COMBO);
-		dropdown.setDisabled(true);
-		addFieldToLayout(dropdown, "Disabled combo with cached data from a look up table", null);
 
 		dropdown = new WDropdown(LONG_OPTIONS);
 		addFieldToLayout(dropdown, "Dropdown with long options", null);

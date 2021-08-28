@@ -69,17 +69,6 @@ public class WDropdown_Test extends AbstractWComponentTestCase {
 		assertAccessorsCorrect(new WDropdown(), WDropdown::isEditable, WDropdown::setEditable, false, true, false);
 	}
 
-	@Test
-	public void testOptionWidthAccessors() {
-		assertAccessorsCorrect(new WDropdown(), WDropdown::getOptionWidth, WDropdown::setOptionWidth, 0, 1, 2);
-	}
-
-	@Test
-	public void testTypeAccessors() {
-		assertAccessorsCorrect(new WDropdown(), WDropdown::getType, WDropdown::setType,
-			null, WDropdown.DropdownType.NATIVE, WDropdown.DropdownType.COMBO);
-	}
-
 	// autocomplete
 
 	@Test

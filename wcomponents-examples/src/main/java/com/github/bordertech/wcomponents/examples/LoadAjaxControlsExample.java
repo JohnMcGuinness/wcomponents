@@ -5,7 +5,6 @@ import com.github.bordertech.wcomponents.WCollapsible;
 import com.github.bordertech.wcomponents.WCollapsible.CollapsibleMode;
 import com.github.bordertech.wcomponents.WContainer;
 import com.github.bordertech.wcomponents.WDropdown;
-import com.github.bordertech.wcomponents.WDropdown.DropdownType;
 import com.github.bordertech.wcomponents.WFieldLayout;
 import com.github.bordertech.wcomponents.WHeading;
 import com.github.bordertech.wcomponents.WHorizontalRule;
@@ -128,7 +127,6 @@ public class LoadAjaxControlsExample extends WContainer {
 	 */
 	private void createFields(final WFieldLayout layout, final Object table) {
 		WDropdown down = new WDropdown(table);
-		down.setType(DropdownType.COMBO);
 		layout.addField("Combo Dropdown", down);
 
 		WMultiDropdown multi = new WMultiDropdown(table);
