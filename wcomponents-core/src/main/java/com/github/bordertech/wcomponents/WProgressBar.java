@@ -45,22 +45,6 @@ public class WProgressBar extends WBeanComponent implements AjaxTarget, Labelabl
 	public static final ProgressBarType DEFAULT_TYPE = ProgressBarType.NORMAL;
 
 	/**
-	 * Display unit types.
-	 * @deprecated - not implemented in HTML spec - do not use
-	 */
-	@Deprecated
-	public enum UnitType {
-		/**
-		 * Units will be displayed as a fraction, e.g. <code>33/100</code>.
-		 */
-		FRACTION,
-		/**
-		 * Units will be displayed as a percentage, e.g. <code>33%</code>.
-		 */
-		PERCENTAGE
-	}
-
-	/**
 	 * Creates a normal progress bar.
 	 */
 	public WProgressBar() {
@@ -82,37 +66,12 @@ public class WProgressBar extends WBeanComponent implements AjaxTarget, Labelabl
 	 * Creates a progress bar with the given bar type.
 	 *
 	 * @param type the progress bar type.
-	 * @param unitType the display unit type.
-	 * @deprecated use {@link #WProgressBar(com.github.bordertech.wcomponents.WProgressBar.ProgressBarType)}
-	 */
-	@Deprecated
-	public WProgressBar(final ProgressBarType type, final UnitType unitType) {
-		this(type);
-	}
-
-	/**
-	 * Creates a progress bar with the given bar type.
-	 *
-	 * @param type the progress bar type.
 	 */
 	public WProgressBar(final ProgressBarType type) {
 		if (type == null) {
 			throw new IllegalArgumentException(ILLEGAL_TYPE);
 		}
 		setProgressBarType(type);
-	}
-
-	/**
-	 * Creates a progress bar with the given bar type, unit type and max value.
-	 *
-	 * @param type the progress bar type.
-	 * @param unitType the display unit type.
-	 * @param max the maximum value
-	 * @deprecated use {@link #WProgressBar(com.github.bordertech.wcomponents.WProgressBar.ProgressBarType, int)}
-	 */
-	@Deprecated
-	public WProgressBar(final ProgressBarType type, final UnitType unitType, final int max) {
-		this(type, max);
 	}
 
 	/**
@@ -194,28 +153,6 @@ public class WProgressBar extends WBeanComponent implements AjaxTarget, Labelabl
 		if (typeToSet != currentType) {
 			getOrCreateComponentModel().barType = typeToSet;
 		}
-	}
-
-	/**
-	 * Retrieves the display unit type.
-	 *
-	 * @return the unit type.
-	 * @deprecated unitType not supported in HTML spec
-	 */
-	@Deprecated
-	public final UnitType getUnitType() {
-		return null;
-	}
-
-	/**
-	 * Sets the display unit type.
-	 *
-	 * @param unitType the unit type.
-	 * @deprecated unitType not supported in HTML spec - now a no-op
-	 */
-	@Deprecated
-	public void setUnitType(final UnitType unitType) {
-		// no-op
 	}
 
 	/**

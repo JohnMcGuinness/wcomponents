@@ -33,12 +33,12 @@ public class WProgressBarRenderer_Test extends AbstractWebXmlRendererTestCase {
 			}
 		};
 
-		WProgressBar progressBar = new WProgressBar(WProgressBar.ProgressBarType.NORMAL, WProgressBar.UnitType.FRACTION);
+		WProgressBar progressBar = new WProgressBar(WProgressBar.ProgressBarType.NORMAL);
 		progressBar.setBeanProvider(provider);
 		progressBar.setMax(33);
 		assertXpathExists("//html:progress[@max='33']", progressBar);
 
-		progressBar = new WProgressBar(WProgressBar.ProgressBarType.SMALL, WProgressBar.UnitType.PERCENTAGE);
+		progressBar = new WProgressBar(WProgressBar.ProgressBarType.SMALL);
 		progressBar.setBeanProvider(provider);
 		progressBar.setMax(33);
 		assertXpathExists("//html:progress[@max='33' and contains(@class, 'wc-progressbar-type-small')]", progressBar);
