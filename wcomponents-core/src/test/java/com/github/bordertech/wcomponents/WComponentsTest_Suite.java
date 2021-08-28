@@ -79,7 +79,6 @@ import org.junit.runners.Suite;
 	ThemeUtil_Test.class,
 	UIContextDebugWrapper_Test.class,
 	UIContextImpl_Test.class,
-	UicProfileButton_Test.class,
 	UserAgentInfo_Test.class,
 	VideoResource_Test.class,
 	WAbbrText_Test.class,

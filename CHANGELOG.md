@@ -10,6 +10,8 @@
   * Removed int gaps from ColumnLayout
   * Removed WMenu.SelectMode
   * Removed WProgressBar.UnitType
+  * Removed WDropdown.Type and optionWidth
+  * Removed UicProfileButton
 
 
 ### Enhancements
