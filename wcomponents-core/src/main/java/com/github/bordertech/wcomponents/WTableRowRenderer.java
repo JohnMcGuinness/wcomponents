@@ -264,7 +264,8 @@ public final class WTableRowRenderer extends WDataRenderer {
 
 			if (renderer instanceof DataBound) {
 				((DataBound) renderer).setData(bean);
-			}		}
+			}
+		}
 	}
 
 	/**
