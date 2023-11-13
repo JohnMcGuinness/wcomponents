@@ -135,53 +135,53 @@ public class AbstractWSingleSelectList_Test extends AbstractWComponentTestCase {
 			null, OPTION_A, OPTION_B);
 	}
 
-	@Test
-	public void testGetValueConvertDataToList() {
-		// =======================
-		// ALLOW NONE - TRUE
-
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
-
-		// Retrieve the value from the bean (so not setting via setData)
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Data is null
-		single.setBean(null);
-		Assert.assertNull("Allow None - getValue for null data should be null", single.getValue());
-
-		// Data is an Option
-		single.setBean(OPTION_B);
-		Assert.assertEquals("Allow None - getValue for Object data should be the selected option",
-				OPTION_B,
-				single.getValue());
-
-		resetContext();
-
-		// =======================
-		// ALLOW NONE - FALSE
-		single = new MyWSingleSelectList(OPTIONS, false);
-
-		// Retrieve the value from the bean (so not setting via setData)
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Data is null
-		single.setBean(null);
-		Assert.assertEquals("No Allow None - getValue for null data should be the first option",
-				SELECTED_FIRST_OPTION,
-				single.getValue());
-
-		// Data is an Option
-		single.setBean(OPTION_B);
-		Assert.assertEquals("getValue for Object data should be the selected optionB", OPTION_B,
-				single.getValue());
-
-	}
+//	@Test
+//	public void testGetValueConvertDataToList() {
+//		// =======================
+//		// ALLOW NONE - TRUE
+//
+//		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
+//
+//		// Retrieve the value from the bean (so not setting via setData)
+//		single.setBeanProperty(".");
+//
+//		single.setLocked(true);
+//		setActiveContext(createUIContext());
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.assertNull("Allow None - getValue for null data should be null", single.getValue());
+//
+//		// Data is an Option
+//		single.setBean(OPTION_B);
+//		Assert.assertEquals("Allow None - getValue for Object data should be the selected option",
+//				OPTION_B,
+//				single.getValue());
+//
+//		resetContext();
+//
+//		// =======================
+//		// ALLOW NONE - FALSE
+//		single = new MyWSingleSelectList(OPTIONS, false);
+//
+//		// Retrieve the value from the bean (so not setting via setData)
+//		single.setBeanProperty(".");
+//
+//		single.setLocked(true);
+//		setActiveContext(createUIContext());
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.assertEquals("No Allow None - getValue for null data should be the first option",
+//				SELECTED_FIRST_OPTION,
+//				single.getValue());
+//
+//		// Data is an Option
+//		single.setBean(OPTION_B);
+//		Assert.assertEquals("getValue for Object data should be the selected optionB", OPTION_B,
+//				single.getValue());
+//
+//	}
 
 	@Test
 	public void testGetValueWithNoOptionsNothingSelected() {
@@ -350,171 +350,80 @@ public class AbstractWSingleSelectList_Test extends AbstractWComponentTestCase {
 		resetContext();
 	}
 
-	@Test
-	public void testGetValueWithBean() {
-		// =======================
-		// Allow None - TRUE
-
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
-		// Set Bean Property
-		single.setBeanProperty(".");
-
-		// With User Context
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Null Bean Value
-		Assert.assertNull("Allow None - Data should be null when bean value is null", single.
-				getValue());
-
-		// Valid Bean Value
-		single.setBean(OPTION_B);
-		Assert.assertEquals("Allow None - Data should be OptionA from bean", OPTION_B, single.
-				getValue());
-
-		// Invalid Bean Value
-		single.setBean(OPTION_INVALID);
-		try {
-			single.getValue();
-			Assert.fail("Allow None - Exception should have been thrown for invalid option on bean");
-		} catch (IllegalStateException e) {
-			Assert.assertNotNull(
-					"Allow None - No exception message provided for invalid option on bean",
-					e.getMessage());
-		}
-		resetContext();
-
-		// =======================
-		// Allow None - FALSE
-		single = new MyWSingleSelectList(OPTIONS, false);
-		// Set Bean Property
-		single.setBeanProperty(".");
-
-		// With User Context
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Null Bean Value
-		Assert.assertEquals("No Allow None - Data should default to OptionA", OPTION_A, single.
-				getValue());
-
-		// Valid Bean Value
-		single.setBean(OPTION_B);
-		Assert.assertEquals("No Allow None - Data should be OptionB from bean", OPTION_B, single.
-				getValue());
-
-		// Invalid Bean Value
-		single.setBean(OPTION_INVALID);
-		try {
-			single.getValue();
-			Assert.fail(
-					"No Allow None - Exception should have been thrown for invalid option on bean");
-		} catch (IllegalStateException e) {
-			Assert.assertNotNull(
-					"No Allow None - No exception message provided for invalid option on bean",
-					e.getMessage());
-		}
-	}
-
-	@Test
-	public void testGetValueEditableOption() {
-		// Editable List
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
-		single.setEditable(true);
-		// Set Bean Property
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		single.setBean("USERTEXT");
-		Assert.assertEquals("Should be user text selected", "USERTEXT", single.getValue());
-
-		// ===============
-		// Null Options
-		single.setOptions((List<?>) null);
-		Assert.assertEquals("Should be user text selected", "USERTEXT", single.getValue());
-
-		// ===============
-		// Empty Options
-		single.setOptions(EMPTY_LIST);
-		Assert.assertEquals("Should be user text selected", "USERTEXT", single.getValue());
-	}
-
-	@Test
-	public void testGetData() {
-
-		// =======================
-		// ALLOW NONE - TRUE
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
-
-		// Retrieve the value from the bean (so not setting via setData)
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Data is null
-		single.setBean(null);
-		Assert.assertNull("Allow None - getData for null data should be null", single.getData());
-
-		// Data is an Option
-		single.setBean(OPTION_B);
-		Assert.assertEquals("Allow None - getData for Object data should be the selected option",
-				OPTION_B,
-				single.getData());
-
-		resetContext();
-
-		// =======================
-		// ALLOW NONE - FALSE
-		single = new MyWSingleSelectList(OPTIONS, false);
-
-		// Retrieve the value from the bean (so not setting via setData)
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Data is null
-		single.setBean(null);
-		Assert.assertEquals("No Allow None - getData for null list data should be the first option",
-				SELECTED_FIRST_OPTION, single.getData());
-
-		// Data is an Option
-		single.setBean(OPTION_B);
-		Assert.
-				assertEquals("No Allow None - getData for Object data should be the Object",
-						OPTION_B, single.getData());
-
-		// =======================
-		// Include "null" as an option
-		single.setOptions(OPTIONS_WITH_NULL);
-
-		// Data is null
-		single.setBean(null);
-		Assert.
-				assertNull(
-						"No Allow None - Null is an option - getData for null data should be null",
-						single.getData());
-
-		// =======================
-		// No Options
-		single.setOptions((List<?>) null);
-
-		// Data is null
-		single.setBean(null);
-		Assert.assertNull("No Allow None - No options - getData for null data should be null",
-				single.getData());
-
-		// Data is an Option
-		single.setBean(OPTION_B);
-		Assert.assertEquals(
-				"No Allow None - No options -  getData for Object data should be the Object",
-				OPTION_B,
-				single.getData());
-
-	}
+//	@Test
+//	public void testGetData() {
+//
+//		// =======================
+//		// ALLOW NONE - TRUE
+//		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
+//
+//		// Retrieve the value from the bean (so not setting via setData)
+//		single.setBeanProperty(".");
+//
+//		single.setLocked(true);
+//		setActiveContext(createUIContext());
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.assertNull("Allow None - getData for null data should be null", single.getData());
+//
+//		// Data is an Option
+//		single.setBean(OPTION_B);
+//		Assert.assertEquals("Allow None - getData for Object data should be the selected option",
+//				OPTION_B,
+//				single.getData());
+//
+//		resetContext();
+//
+//		// =======================
+//		// ALLOW NONE - FALSE
+//		single = new MyWSingleSelectList(OPTIONS, false);
+//
+//		// Retrieve the value from the bean (so not setting via setData)
+//		single.setBeanProperty(".");
+//
+//		single.setLocked(true);
+//		setActiveContext(createUIContext());
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.assertEquals("No Allow None - getData for null list data should be the first option",
+//				SELECTED_FIRST_OPTION, single.getData());
+//
+//		// Data is an Option
+//		single.setBean(OPTION_B);
+//		Assert.
+//				assertEquals("No Allow None - getData for Object data should be the Object",
+//						OPTION_B, single.getData());
+//
+//		// =======================
+//		// Include "null" as an option
+//		single.setOptions(OPTIONS_WITH_NULL);
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.
+//				assertNull(
+//						"No Allow None - Null is an option - getData for null data should be null",
+//						single.getData());
+//
+//		// =======================
+//		// No Options
+//		single.setOptions((List<?>) null);
+//
+//		// Data is null
+//		single.setBean(null);
+//		Assert.assertNull("No Allow None - No options - getData for null data should be null",
+//				single.getData());
+//
+//		// Data is an Option
+//		single.setBean(OPTION_B);
+//		Assert.assertEquals(
+//				"No Allow None - No options -  getData for Object data should be the Object",
+//				OPTION_B,
+//				single.getData());
+//
+//	}
 
 	@Test
 	public void testSetData() {
@@ -769,99 +678,6 @@ public class AbstractWSingleSelectList_Test extends AbstractWComponentTestCase {
 	}
 
 	@Test
-	public void testDoHandleRequestBeanBound() {
-
-		// Set action on change
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
-		// Set Bean Property
-		single.setBeanProperty("myOption");
-
-		WContainer container = new WContainer();
-		container.add(single);
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Set a Bean that has no selections
-		MyBean bean = new MyBean();
-		container.setBean(bean);
-
-		// Test Nothing Selected and Empty Request (No Change)
-		MockRequest request = setupNothingSelectedRequest(single);
-		boolean changed = single.doHandleRequest(request);
-		Assert.assertNull("Should have no option selected", single.getSelected());
-		Assert.assertFalse("doHandleRequest should have returned false", changed);
-
-		// Setup Request with optionA (Change)
-		request = setupRequest(single, OPTION_A);
-		changed = single.doHandleRequest(request);
-		Assert.assertEquals("Selected option should be optionA", OPTION_A, single.getSelected());
-		Assert.assertTrue("doHandleRequest should have returned true", changed);
-
-		// Setup Request with optionA (No Change)
-		request = setupRequest(single, OPTION_A);
-		changed = single.doHandleRequest(request);
-		Assert.assertEquals("Selected option should be optionA", OPTION_A, single.getSelected());
-		Assert.assertFalse("doHandleRequest should have returned false", changed);
-
-		// Update Bean (should have optionA on the bean)
-		single.updateBeanValue();
-		Assert.assertEquals("Bean should contain optionA", OPTION_A, bean.getMyOption());
-
-		// Clear Context so gets value from the bean
-		single.reset();
-		Assert.assertEquals("Selected option should be optionA", OPTION_A, single.getSelected());
-
-		// Change Bean to optionB (Make sure the value is coming from the bean)
-		bean.setMyOption(OPTION_B);
-		Assert.assertEquals("Selected should be optionB coming from the bean", OPTION_B, single.
-				getSelected());
-
-		// Setup Request with optionC (Change)
-		request = setupRequest(single, OPTION_C);
-		changed = single.doHandleRequest(request);
-		Assert.assertEquals("Selected option should be optionC", OPTION_C, single.getSelected());
-		Assert.assertTrue("doHandleRequest should have returned true", changed);
-
-		// Setup Empty Request (Change)
-		request = setupNothingSelectedRequest(single);
-		changed = single.doHandleRequest(request);
-		Assert.assertNull("Should have no option selected", single.getSelected());
-		Assert.assertTrue("doHandleRequest should have returned true", changed);
-	}
-
-	@Test
-	public void testDoHandleRequestLegacyMatching() {
-		Boolean optionA = Boolean.TRUE;
-		Boolean optionB = null;
-		Boolean optionC = Boolean.FALSE;
-		List<Boolean> options = Arrays.asList(new Boolean[]{optionA, optionB, optionC});
-
-		String selectedLegacy = "false";
-
-		// Set action on change
-		AbstractWSingleSelectList single = new MyWSingleSelectList(options, true);
-
-		// Set selected to OptionA - "String Representation" (Legacy String match)
-		// Get value from the bean (nut use setData)
-		single.setBeanProperty(".");
-
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		single.setBean(selectedLegacy);
-
-		// Setup Request with optionC (No Change)
-		MockRequest request = setupRequest(single, optionC);
-		boolean changed = single.doHandleRequest(request);
-		// Action should not trigger but selected should now be the correct option
-		Assert.
-				assertEquals("Selected should have changed to optionA", optionC, single.
-						getSelected());
-		Assert.assertFalse("doHandleRequest should have returned false", changed);
-	}
-
-	@Test
 	public void testDoHandleRequestEditable() {
 		// Set action on change
 		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, true);
@@ -1078,35 +894,6 @@ public class AbstractWSingleSelectList_Test extends AbstractWComponentTestCase {
 		Assert.assertEquals("new selection should return user text", "usertext", single.
 				getNewSelection(request));
 
-	}
-
-	@Test
-	public void testUpdateBeanDefaultFirstOption() {
-		AbstractWSingleSelectList single = new MyWSingleSelectList(OPTIONS, false);
-		// Set Bean Property
-		single.setBeanProperty("myOption");
-
-		// With User Context
-		single.setLocked(true);
-		setActiveContext(createUIContext());
-
-		// Set Bean Property and Bean
-		MyBean bean = new MyBean();
-		single.setBean(bean);
-
-		// Null Bean Value - getValue will default to first Option
-		Assert.assertEquals("Data should default to OptionA", OPTION_A, single.getValue());
-
-		// Test handle request is "no change"
-		MockRequest request = setupRequest(single, OPTION_A);
-		boolean changed = single.doHandleRequest(request);
-		Assert.assertFalse("doHandleRequest should return false as option should not change",
-				changed);
-
-		// Update Bean (should have optionA on the bean)
-		Assert.assertNull("Bean should still be null", bean.getMyOption());
-		single.updateBeanValue();
-		Assert.assertEquals("Bean should contain optionA", OPTION_A, bean.getMyOption());
 	}
 
 	@Test

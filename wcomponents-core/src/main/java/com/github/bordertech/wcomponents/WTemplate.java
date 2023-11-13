@@ -445,7 +445,7 @@ public class WTemplate extends WBeanComponent implements Container, NamingContex
 	 *
 	 * @author Jonathan Austin
 	 */
-	public static class TemplateModel extends BeanAndProviderBoundComponentModel {
+	public static class TemplateModel extends DataBoundComponentModel {
 
 		/**
 		 * The template name.

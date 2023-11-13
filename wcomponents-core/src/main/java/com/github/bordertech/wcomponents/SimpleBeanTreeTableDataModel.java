@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Yiannis Paschalidis
  * @since 1.0.0
  *
- * @deprecated Use {@link WTable} and {@link SimpleBeanBoundTableModel} instead.
+ * @deprecated Use {@link WTable}..
  */
 @Deprecated
 public class SimpleBeanTreeTableDataModel extends AbstractTreeTableDataModel {

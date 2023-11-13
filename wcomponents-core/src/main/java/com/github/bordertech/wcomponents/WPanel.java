@@ -342,7 +342,7 @@ public class WPanel extends WContainer implements AjaxInternalTrigger, AjaxTarge
 	 *
 	 * @author Jonathan Austin
 	 */
-	public static class PanelModel extends BeanAndProviderBoundComponentModel {
+	public static class PanelModel extends DataBoundComponentModel {
 
 		/**
 		 * The type of panel.

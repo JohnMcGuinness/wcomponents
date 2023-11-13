@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	AbstractContainerHelper_Test.class,
+//	AbstractContainerHelper_Test.class,
 	AjaxDebugStructureInterceptor_Test.class,
 	AjaxErrorInterceptor_Test.class,
 	AjaxSetupInterceptor_Test.class,

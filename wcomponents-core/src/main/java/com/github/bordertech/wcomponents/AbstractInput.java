@@ -511,7 +511,7 @@ public abstract class AbstractInput extends WBeanComponent implements Input {
 	/**
 	 * InputModel holds Extrinsic state management of the field.
 	 */
-	public static class InputModel extends BeanAndProviderBoundComponentModel {
+	public static class InputModel extends DataBoundComponentModel {
 
 		/**
 		 * A flag if the input changed in the last request.

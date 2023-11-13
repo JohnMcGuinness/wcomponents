@@ -238,7 +238,6 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 		add(actions);
 
 		repeater.setRepeatedComponent(new WDataTableRowRenderer(this));
-		repeater.setBeanProvider(new DataModelBeanProvider(this));
 	}
 
 	/**
@@ -321,11 +320,6 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 		getOrCreateComponentModel().dataModel = dataModel;
 		getOrCreateComponentModel().rowIndexMapping = null;
 
-		if (dataModel instanceof BeanTableDataModel) {
-			((BeanTableDataModel) dataModel).setBeanProvider(new DataTableBeanProvider(this));
-			((BeanTableDataModel) dataModel).setBeanProperty(".");
-		}
-
 		if (dataModel instanceof ScrollableTableDataModel) {
 			int startIndex = getCurrentPage() * getRowsPerPage();
 			int endIndex = startIndex + getRowsPerPage() - 1;
@@ -334,65 +328,6 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 
 		// Flush the repeater's row contexts and scratch maps
 		repeater.reset();
-	}
-
-	/**
-	 * Updates the bean using the table data model's {@link TableDataModel#setValueAt(Object, int, int)} method.
-	 */
-	@Override
-	public void updateBeanValue() {
-		TableDataModel model = getDataModel();
-
-		if (model instanceof ScrollableTableDataModel) {
-			LOG.warn("UpdateBeanValue only updating the current page for ScrollableTableDataModel");
-			updateBeanValueCurrentPageOnly();
-		} else if (model.getRowCount() > 0) {
-			// Temporarily widen the pagination on the repeater to hold all rows
-			// Calling setBean with a non-null value overrides the DataTableBeanProvider
-			repeater.setBean(new RowIdList(0, model.getRowCount() - 1));
-			updateBeanValueCurrentPageOnly();
-			repeater.setBean(null);
-		}
-	}
-
-	/**
-	 * Updates the bean using the table data model's {@link TableDataModel#setValueAt(Object, int, int)} method. This
-	 * method only updates the data for the current page.
-	 */
-	private void updateBeanValueCurrentPageOnly() {
-		WDataTableRowRenderer rowRenderer = (WDataTableRowRenderer) repeater.getRepeatedComponent();
-		TableDataModel model = getDataModel();
-
-		// The bean list for the repeater is a list of Integer row indices
-		for (Integer rowBean : (List<Integer>) repeater.getBeanList()) {
-			int row = rowBean;
-			UIContext rowContext = repeater.getRowContext(rowBean, row);
-			final int columnCount = getColumnCount();
-
-			for (int col = 0; col < columnCount; col++) {
-				if (model.isCellEditable(row, col)) {
-					// The actual component is wrapped in a renderer wrapper, so we have to fetch it from that
-					WComponent renderer = ((Container) rowRenderer.getRenderer(col)).getChildAt(0);
-
-					if (renderer instanceof DataBound) {
-						Object oldValue = model.getValueAt(row, col);
-
-						UIContextHolder.pushContext(rowContext);
-						Object newValue = null;
-
-						try {
-							newValue = ((DataBound) renderer).getData();
-						} finally {
-							UIContextHolder.popContext();
-						}
-
-						if (!Util.equals(oldValue, newValue)) {
-							model.setValueAt(newValue, row, col);
-						}
-					}
-				}
-			}
-		}
 	}
 
 	/**
@@ -984,7 +919,7 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 			} else {
 				setSelectedRows(new ArrayList<>(0));
 			}
-		}		
+		}
 	}
 
 	/**
@@ -1460,96 +1395,6 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 	}
 
 	/**
-	 * A bean provider implementation which uses the bean bound to the table.
-	 */
-	private static final class DataTableBeanProvider implements BeanProvider, Serializable {
-
-		private final WDataTable table;
-
-		/**
-		 * @param table the parent table
-		 */
-		private DataTableBeanProvider(final WDataTable table) {
-			this.table = table;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			return table.getBeanValue();
-		}
-	}
-
-	/**
-	 * A bean provider implementation which provides beans to the table repeater. This provider takes the table's
-	 * pagination state into account, so that only visible rows are rendered.
-	 */
-	private static final class DataModelBeanProvider implements BeanProvider, Serializable {
-
-		private final WDataTable table;
-
-		/**
-		 * @param table the parent table
-		 */
-		private DataModelBeanProvider(final WDataTable table) {
-			this.table = table;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			TableDataModel dataModel = table.getDataModel();
-
-			if (dataModel.getRowCount() == 0) {
-				return Collections.emptyList();
-			}
-
-			int startIndex = 0;
-			int endIndex = dataModel.getRowCount() - 1;
-
-			switch (table.getPaginationMode()) {
-				case DYNAMIC:
-				case SERVER: {
-					int rowsPerPage = table.getRowsPerPage();
-					int currentPage = table.getCurrentPage();
-					int rowCount = table.getComponentModel().getPaginationRowCount();
-
-					startIndex = Math.min(currentPage * rowsPerPage,
-							rowCount - (rowCount % rowsPerPage));
-					endIndex = Math.min(startIndex + rowsPerPage, rowCount) - 1;
-
-					if (dataModel instanceof TreeTableDataModel) {
-						// Adjust indices (child node index --> table row index).
-						TreeNode rootNode = ((TreeTableDataModel) dataModel).getNodeAtLine(0).
-								getParent();
-						TableTreeNode startNode = (TableTreeNode) rootNode.getChildAt(startIndex);
-						TableTreeNode endNode = (TableTreeNode) rootNode.getChildAt(endIndex);
-						startIndex = startNode.getRowIndex() - 1;
-						endIndex = endNode.getRowIndex() + endNode.getNodeCount() - 1;
-					}
-
-					break;
-				}
-
-				default:
-					// do nothing.
-					break;
-			}
-
-			if (endIndex < startIndex) {
-				// No data
-				return Collections.EMPTY_LIST;
-			}
-
-			return table.getRowIds(startIndex, endIndex);
-		}
-	}
-
-	/**
 	 * Determine the row ids for the provided index range.
 	 *
 	 * @param startIndex the startIndex
@@ -1587,7 +1432,7 @@ public class WDataTable extends WBeanComponent implements Disableable, Container
 	 *
 	 * @author Yiannis Paschalidis
 	 */
-	public static final class TableModel extends BeanAndProviderBoundComponentModel {
+	public static final class TableModel extends DataBoundComponentModel {
 
 		/**
 		 * This controls how sorting should function. Sortability is determined by the data model.

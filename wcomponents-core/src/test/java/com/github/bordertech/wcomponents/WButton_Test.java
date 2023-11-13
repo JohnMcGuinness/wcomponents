@@ -18,7 +18,7 @@ public class WButton_Test extends AbstractWComponentTestCase {
 	private static final String USER_VALUE = "user value";
 	private static final String SHARED_TEXT = "shared text";
 	private static final String USER_TEXT = "user text";
-	private static final String BEAN_VALUE = "bean value";
+//	private static final String BEAN_VALUE = "bean value";
 
 	@Test
 	public void testConstructors() {
@@ -184,408 +184,364 @@ public class WButton_Test extends AbstractWComponentTestCase {
 	@Test
 	public void testGetText() {
 		Assert.assertNull("Incorrect text for button with nothing",
-				getButtonText(false, false, false, false, false, false));
+				getButtonText(false, false, false, false));
 
 		Assert.assertEquals("Incorrect text for button with Shared text",
 				SHARED_TEXT,
-				getButtonText(true, false, false, false, false, false));
+				getButtonText(true, false, false, false));
 
 		Assert.assertEquals("Incorrect text for button with User text",
 				USER_TEXT,
-				getButtonText(false, true, false, false, false, false));
+				getButtonText(false, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with User + shared text",
 				USER_TEXT,
-				getButtonText(true, true, false, false, false, false));
+				getButtonText(true, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with Shared value only",
 				SHARED_VALUE,
-				getButtonText(false, false, true, false, false, false));
+				getButtonText(false, false, true, false));
 
 		Assert.assertEquals("Incorrect text for button with Shared text, shared value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, false, false, false));
+				getButtonText(true, false, true, false));
 
 		Assert.assertEquals("Incorrect text for button with User text, shared value",
 				USER_TEXT,
-				getButtonText(false, true, true, false, false, false));
+				getButtonText(false, true, true, false));
 
 		Assert.assertEquals("Incorrect text for button with Shared + user text, shared value",
 				USER_TEXT,
-				getButtonText(true, true, true, false, false, false));
+				getButtonText(true, true, true, false));
 
 		Assert.assertEquals("Incorrect text for button with User value only",
 				USER_VALUE,
-				getButtonText(false, false, false, true, false, false));
+				getButtonText(false, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with Shared text, user value",
 				SHARED_TEXT,
-				getButtonText(true, false, false, true, false, false));
+				getButtonText(true, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with User text, user value",
 				USER_TEXT,
-				getButtonText(false, true, false, true, false, false));
+				getButtonText(false, true, false, true));
 
 		Assert.assertEquals("Incorrect text for button with Shared + user text, user value",
 				USER_TEXT,
-				getButtonText(true, true, false, true, false, false));
+				getButtonText(true, true, false, true));
 
 		Assert.assertEquals("Incorrect text for button with Shared + user value",
 				USER_VALUE,
-				getButtonText(false, false, true, true, false, false));
+				getButtonText(false, false, true, true));
 
 		Assert.assertEquals("Incorrect text for button with Shared text, shared + user value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, true, false, false));
+				getButtonText(true, false, true, true));
 
 		Assert.assertEquals("Incorrect text for button with User text, shared + user value",
 				USER_TEXT,
-				getButtonText(false, true, true, true, false, false));
+				getButtonText(false, true, true, true));
 
-		Assert.
-				assertEquals(
-						"Incorrect text for button with Shared + user text, shared + user value",
-						USER_TEXT,
-						getButtonText(true, true, true, true, false, false));
+		Assert.assertEquals(
+				"Incorrect text for button with Shared + user text, shared + user value",
+				USER_TEXT,
+				getButtonText(true, true, true, true));
 
 		Assert.assertNull("Incorrect text for button with null bean only",
-				getButtonText(false, false, false, false, true, true));
+				getButtonText(false, false, false, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, Shared text",
 				SHARED_TEXT,
-				getButtonText(true, false, false, false, true, true));
+				getButtonText(true, false, false, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, User text",
 				USER_TEXT,
-				getButtonText(false, true, false, false, true, true));
+				getButtonText(false, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, User + shared text",
 				USER_TEXT,
-				getButtonText(true, true, false, false, true, true));
+				getButtonText(true, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, Shared value only",
 				SHARED_VALUE,
-				getButtonText(false, false, true, false, true, true));
+				getButtonText(false, false, true, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, Shared text, shared value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, false, true, true));
+				getButtonText(true, false, true, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, User text, shared value",
 				USER_TEXT,
-				getButtonText(false, true, true, false, true, true));
+				getButtonText(false, true, true, false));
 
 		Assert.assertEquals(
 				"Incorrect text for button with null bean, Shared + user text, shared value",
 				USER_TEXT,
-				getButtonText(true, true, true, false, true, true));
+				getButtonText(true, true, true, false));
 
 		Assert.assertEquals("Incorrect text for button with null bean, User value only",
 				USER_VALUE,
-				getButtonText(false, false, false, true, true, true));
+				getButtonText(false, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with null bean, Shared text, user value",
 				SHARED_TEXT,
-				getButtonText(true, false, false, true, true, true));
+				getButtonText(true, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with null bean, User text, user value",
 				USER_TEXT,
-				getButtonText(false, true, false, true, true, true));
+				getButtonText(false, true, false, true));
 
 		Assert.assertEquals(
 				"Incorrect text for button with null bean, Shared + user text, user value",
 				USER_TEXT,
-				getButtonText(true, true, false, true, true, true));
+				getButtonText(true, true, false, true));
 
 		Assert.assertEquals("Incorrect text for button with null bean, Shared + user value",
 				USER_VALUE,
-				getButtonText(false, false, true, true, true, true));
+				getButtonText(false, false, true, true));
 
 		Assert.assertEquals(
 				"Incorrect text for button with null bean, Shared text, shared + user value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, true, true, true));
+				getButtonText(true, false, true, true));
 
 		Assert.assertEquals(
 				"Incorrect text for button with null bean, User text, shared + user value",
 				USER_TEXT,
-				getButtonText(false, true, true, true, true, true));
+				getButtonText(false, true, true, true));
 
 		Assert.assertEquals(
 				"Incorrect text for button with null bean, Shared + user text, shared + user value",
 				USER_TEXT,
-				getButtonText(true, true, true, true, true, true));
-
-		Assert.assertEquals("Incorrect text for button with Bean only",
-				BEAN_VALUE,
-				getButtonText(false, false, false, false, true, false));
+				getButtonText(true, true, true, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared text",
 				SHARED_TEXT,
-				getButtonText(true, false, false, false, true, false));
+				getButtonText(true, false, false, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, User text",
 				USER_TEXT,
-				getButtonText(false, true, false, false, true, false));
+				getButtonText(false, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, User + shared text",
 				USER_TEXT,
-				getButtonText(true, true, false, false, true, false));
-
-		Assert.assertEquals("Incorrect text for button with bean, Shared value only",
-				BEAN_VALUE,
-				getButtonText(false, false, true, false, true, false));
+				getButtonText(true, true, false, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared text, shared value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, false, true, false));
+				getButtonText(true, false, true, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, User text, shared value",
 				USER_TEXT,
-				getButtonText(false, true, true, false, true, false));
+				getButtonText(false, true, true, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared + user text, shared value",
 				USER_TEXT,
-				getButtonText(true, true, true, false, true, false));
+				getButtonText(true, true, true, false));
 
 		Assert.assertEquals("Incorrect text for button with bean, User value only",
 				USER_VALUE,
-				getButtonText(false, false, false, true, true, false));
+				getButtonText(false, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared text, user value",
 				SHARED_TEXT,
-				getButtonText(true, false, false, true, true, false));
+				getButtonText(true, false, false, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, User text, user value",
 				USER_TEXT,
-				getButtonText(false, true, false, true, true, false));
+				getButtonText(false, true, false, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared + user text, user value",
 				USER_TEXT,
-				getButtonText(true, true, false, true, true, false));
+				getButtonText(true, true, false, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared + user value",
 				USER_VALUE,
-				getButtonText(false, false, true, true, true, false));
+				getButtonText(false, false, true, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, Shared text, shared + user value",
 				SHARED_TEXT,
-				getButtonText(true, false, true, true, true, false));
+				getButtonText(true, false, true, true));
 
 		Assert.assertEquals("Incorrect text for button with bean, User text, shared + user value",
 				USER_TEXT,
-				getButtonText(false, true, true, true, true, false));
+				getButtonText(false, true, true, true));
 
 		Assert.assertEquals(
 				"Incorrect text for button with bean, Shared + user text, shared + user value",
 				USER_TEXT,
-				getButtonText(true, true, true, true, true, false));
+				getButtonText(true, true, true, true));
 	}
 
 	@Test
 	public void testGetValue() {
 		Assert.assertEquals("Incorrect value for button with nothing",
 				WButton.NO_VALUE,
-				getButtonValue(false, false, false, false, false, false));
+				getButtonValue(false, false, false, false));
 
 		Assert.assertEquals("Incorrect value for button with Shared text",
 				SHARED_TEXT,
-				getButtonValue(true, false, false, false, false, false));
+				getButtonValue(true, false, false, false));
 
 		Assert.assertEquals("Incorrect value for button with User text",
 				USER_TEXT,
-				getButtonValue(false, true, false, false, false, false));
+				getButtonValue(false, true, false, false));
 
 		Assert.assertEquals("Incorrect value for button with User + shared text",
 				USER_TEXT,
-				getButtonValue(true, true, false, false, false, false));
+				getButtonValue(true, true, false, false));
 
 		Assert.assertEquals("Incorrect value for button with Shared value only",
 				SHARED_VALUE,
-				getButtonValue(false, false, true, false, false, false));
+				getButtonValue(false, false, true, false));
 
 		Assert.assertEquals("Incorrect value for button with Shared text, shared value",
 				SHARED_VALUE,
-				getButtonValue(true, false, true, false, false, false));
+				getButtonValue(true, false, true, false));
 
 		Assert.assertEquals("Incorrect value for button with User text, shared value",
 				SHARED_VALUE,
-				getButtonValue(false, true, true, false, false, false));
+				getButtonValue(false, true, true, false));
 
 		Assert.assertEquals("Incorrect value for button with Shared + user text, shared value",
 				SHARED_VALUE,
-				getButtonValue(true, true, true, false, false, false));
+				getButtonValue(true, true, true, false));
 
 		Assert.assertEquals("Incorrect value for button with User value only",
 				USER_VALUE,
-				getButtonValue(false, false, false, true, false, false));
+				getButtonValue(false, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with Shared text, user value",
 				USER_VALUE,
-				getButtonValue(true, false, false, true, false, false));
+				getButtonValue(true, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with User text, user value",
 				USER_VALUE,
-				getButtonValue(false, true, false, true, false, false));
+				getButtonValue(false, true, false, true));
 
 		Assert.assertEquals("Incorrect value for button with Shared + user text, user value",
 				USER_VALUE,
-				getButtonValue(true, true, false, true, false, false));
+				getButtonValue(true, true, false, true));
 
 		Assert.assertEquals("Incorrect value for button with Shared + user value",
 				USER_VALUE,
-				getButtonValue(false, false, true, true, false, false));
+				getButtonValue(false, false, true, true));
 
 		Assert.assertEquals("Incorrect value for button with Shared text, shared + user value",
 				USER_VALUE,
-				getButtonValue(true, false, true, true, false, false));
+				getButtonValue(true, false, true, true));
 
 		Assert.assertEquals("Incorrect value for button with User text, shared + user value",
 				USER_VALUE,
-				getButtonValue(false, true, true, true, false, false));
+				getButtonValue(false, true, true, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with Shared + user text, shared + user value",
 				USER_VALUE,
-				getButtonValue(true, true, true, true, false, false));
+				getButtonValue(true, true, true, true));
 
 		Assert.assertEquals("Incorrect value for button with null bean only",
 				WButton.NO_VALUE,
-				getButtonValue(false, false, false, false, true, true));
+				getButtonValue(false, false, false, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, Shared text",
 				SHARED_TEXT,
-				getButtonValue(true, false, false, false, true, true));
+				getButtonValue(true, false, false, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, User text",
 				USER_TEXT,
-				getButtonValue(false, true, false, false, true, true));
+				getButtonValue(false, true, false, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, User + shared text",
 				USER_TEXT,
-				getButtonValue(true, true, false, false, true, true));
+				getButtonValue(true, true, false, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, Shared value only",
 				SHARED_VALUE,
-				getButtonValue(false, false, true, false, true, true));
+				getButtonValue(false, false, true, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, Shared text, shared value",
 				SHARED_VALUE,
-				getButtonValue(true, false, true, false, true, true));
+				getButtonValue(true, false, true, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, User text, shared value",
 				SHARED_VALUE,
-				getButtonValue(false, true, true, false, true, true));
+				getButtonValue(false, true, true, false));
 
 		Assert.assertEquals(
 				"Incorrect value for button with null bean, Shared + user text, shared value",
 				SHARED_VALUE,
-				getButtonValue(true, true, true, false, true, true));
+				getButtonValue(true, true, true, false));
 
 		Assert.assertEquals("Incorrect value for button with null bean, User value only",
 				USER_VALUE,
-				getButtonValue(false, false, false, true, true, true));
+				getButtonValue(false, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with null bean, Shared text, user value",
 				USER_VALUE,
-				getButtonValue(true, false, false, true, true, true));
+				getButtonValue(true, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with null bean, User text, user value",
 				USER_VALUE,
-				getButtonValue(false, true, false, true, true, true));
+				getButtonValue(false, true, false, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with null bean, Shared + user text, user value",
 				USER_VALUE,
-				getButtonValue(true, true, false, true, true, true));
+				getButtonValue(true, true, false, true));
 
 		Assert.assertEquals("Incorrect value for button with null bean, Shared + user value",
 				USER_VALUE,
-				getButtonValue(false, false, true, true, true, true));
+				getButtonValue(false, false, true, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with null bean, Shared text, shared + user value",
 				USER_VALUE,
-				getButtonValue(true, false, true, true, true, true));
+				getButtonValue(true, false, true, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with null bean, User text, shared + user value",
 				USER_VALUE,
-				getButtonValue(false, true, true, true, true, true));
+				getButtonValue(false, true, true, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with null bean, Shared + user text, shared + user value",
 				USER_VALUE,
-				getButtonValue(true, true, true, true, true, true));
-
-		Assert.assertEquals("Incorrect value for button with Bean only",
-				BEAN_VALUE,
-				getButtonValue(false, false, false, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, Shared text",
-				BEAN_VALUE,
-				getButtonValue(true, false, false, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, User text",
-				BEAN_VALUE,
-				getButtonValue(false, true, false, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, User + shared text",
-				BEAN_VALUE,
-				getButtonValue(true, true, false, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, Shared value only",
-				BEAN_VALUE,
-				getButtonValue(false, false, true, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, Shared text, shared value",
-				BEAN_VALUE,
-				getButtonValue(true, false, true, false, true, false));
-
-		Assert.assertEquals("Incorrect value for button with bean, User text, shared value",
-				BEAN_VALUE,
-				getButtonValue(false, true, true, false, true, false));
-
-		Assert.
-				assertEquals(
-						"Incorrect value for button with bean, Shared + user text, shared value",
-						BEAN_VALUE,
-						getButtonValue(true, true, true, false, true, false));
+				getButtonValue(true, true, true, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, User value only",
 				USER_VALUE,
-				getButtonValue(false, false, false, true, true, false));
+				getButtonValue(false, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, Shared text, user value",
 				USER_VALUE,
-				getButtonValue(true, false, false, true, true, false));
+				getButtonValue(true, false, false, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, User text, user value",
 				USER_VALUE,
-				getButtonValue(false, true, false, true, true, false));
+				getButtonValue(false, true, false, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, Shared + user text, user value",
 				USER_VALUE,
-				getButtonValue(true, true, false, true, true, false));
+				getButtonValue(true, true, false, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, Shared + user value",
 				USER_VALUE,
-				getButtonValue(false, false, true, true, true, false));
+				getButtonValue(false, false, true, true));
 
-		Assert.
-				assertEquals(
-						"Incorrect value for button with bean, Shared text, shared + user value",
-						USER_VALUE,
-						getButtonValue(true, false, true, true, true, false));
+		Assert.assertEquals(
+				"Incorrect value for button with bean, Shared text, shared + user value",
+				USER_VALUE,
+				getButtonValue(true, false, true, true));
 
 		Assert.assertEquals("Incorrect value for button with bean, User text, shared + user value",
 				USER_VALUE,
-				getButtonValue(false, true, true, true, true, false));
+				getButtonValue(false, true, true, true));
 
 		Assert.assertEquals(
 				"Incorrect value for button with bean, Shared + user text, shared + user value",
 				USER_VALUE,
-				getButtonValue(true, true, true, true, true, false));
+				getButtonValue(true, true, true, true));
 	}
 
 	@Test
@@ -600,16 +556,12 @@ public class WButton_Test extends AbstractWComponentTestCase {
 	 * @param useUserText true if the button should have user text
 	 * @param useSharedValue true if the button should have a shared value
 	 * @param useUserValue true if the button should have a user value
-	 * @param useBeanValue true if the button should have a bean provider
-	 * @param nullBean true if the provided bean should be null
 	 *
 	 * @return the button text that will be displayed to the user.
 	 */
 	private String getButtonText(final boolean useSharedText, final boolean useUserText,
-			final boolean useSharedValue, final boolean useUserValue,
-			final boolean useBeanValue, final boolean nullBean) {
-		WButton button = createButton(useSharedText, useUserText, useSharedValue, useUserValue,
-				useBeanValue, nullBean);
+			final boolean useSharedValue, final boolean useUserValue) {
+		WButton button = createButton(useSharedText, useUserText, useSharedValue, useUserValue);
 
 		setActiveContext(createUIContext());
 
@@ -628,16 +580,12 @@ public class WButton_Test extends AbstractWComponentTestCase {
 	 * @param useUserText true if the button should have user text
 	 * @param useSharedValue true if the button should have a shared value
 	 * @param useUserValue true if the button should have a user value
-	 * @param useBeanValue true if the button should have a bean provider
-	 * @param nullBean true if the provided bean should be null
 	 *
 	 * @return the button value will be used for a user.
 	 */
 	private String getButtonValue(final boolean useSharedText, final boolean useUserText,
-			final boolean useSharedValue, final boolean useUserValue,
-			final boolean useBeanValue, final boolean nullBean) {
-		WButton button = createButton(useSharedText, useUserText, useSharedValue, useUserValue,
-				useBeanValue, nullBean);
+			final boolean useSharedValue, final boolean useUserValue) {
+		WButton button = createButton(useSharedText, useUserText, useSharedValue, useUserValue);
 		setActiveContext(createUIContext());
 
 		try {
@@ -655,14 +603,11 @@ public class WButton_Test extends AbstractWComponentTestCase {
 	 * @param useUserText true if the button should have user text
 	 * @param useSharedValue true if the button should have a shared value
 	 * @param useUserValue true if the button should have a user value
-	 * @param useBeanValue true if the button should have a bean provider
-	 * @param nullBean true if the provided bean should be null
 	 *
 	 * @return the button.
 	 */
 	private WButton createButton(final boolean useSharedText, final boolean useUserText,
-			final boolean useSharedValue, final boolean useUserValue,
-			final boolean useBeanValue, final boolean nullBean) {
+			final boolean useSharedValue, final boolean useUserValue) {
 		final WButton button = new WButton() {
 			@Override
 			protected void preparePaintComponent(final Request request) {
@@ -687,15 +632,6 @@ public class WButton_Test extends AbstractWComponentTestCase {
 
 		if (useSharedValue) {
 			button.setValue(SHARED_VALUE);
-		}
-
-		if (useBeanValue) {
-			button.setBeanProvider(new BeanProvider() {
-				@Override
-				public Object getBean(final BeanProviderBound beanProviderBound) {
-					return nullBean ? null : BEAN_VALUE;
-				}
-			});
 		}
 
 		return button;

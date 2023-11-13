@@ -553,7 +553,7 @@ public class WLink extends WBeanComponent implements Container, Disableable, Aja
 	/**
 	 * Holds the extrinsic state information of a WLink.
 	 */
-	public static class LinkModel extends BeanAndProviderBoundComponentModel {
+	public static class LinkModel extends DataBoundComponentModel {
 
 		/**
 		 * The text for the link.

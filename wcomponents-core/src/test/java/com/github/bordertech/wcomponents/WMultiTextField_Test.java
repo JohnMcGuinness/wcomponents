@@ -55,45 +55,45 @@ public class WMultiTextField_Test extends AbstractWComponentTestCase {
 				getTextInputs()));
 	}
 
-	@Test
-	public void testGetValue() {
-		WMultiTextField field = new WMultiTextField();
-		field.setBeanProperty(".");
-		field.setLocked(true);
-
-		setActiveContext(createUIContext());
-
-		// Null
-		field.setBean(null);
-		Assert.assertNull("Value should be null", field.getValue());
-
-		// Array - empty
-		field.setBean(ENTERED_EMPTY);
-		Assert.assertNull("Value should be null for empty array", field.getValue());
-
-		// Array
-		field.setBean(ENTERED_1_2);
-		Assert.assertTrue("Value should be an array with the two entrie in the array",
-				Arrays.equals(ENTERED_1_2, field.getValue()));
-
-		// List
-		field.setBean(Arrays.asList(ENTERED_1_2));
-		Assert.assertTrue("Value should be an array with the two entries in the list",
-				Arrays.equals(ENTERED_1_2, field.getValue()));
-
-		// List with null
-		List<String> data = new ArrayList<>(Arrays.asList(ENTERED_1_2));
-		data.add("");
-		field.setBean(data);
-		Assert.assertTrue(
-				"Value should be an array with the two entries in the list without the empty entry",
-				Arrays.equals(ENTERED_1_2, field.getValue()));
-
-		// Just object
-		field.setBean(TEXT1);
-		Assert.assertTrue("Value should be an array with the text item", Arrays.equals(ENTERED_1,
-				field.getValue()));
-	}
+//	@Test
+//	public void testGetValue() {
+//		WMultiTextField field = new WMultiTextField();
+//		field.setBeanProperty(".");
+//		field.setLocked(true);
+//
+//		setActiveContext(createUIContext());
+//
+//		// Null
+//		field.setBean(null);
+//		Assert.assertNull("Value should be null", field.getValue());
+//
+//		// Array - empty
+//		field.setBean(ENTERED_EMPTY);
+//		Assert.assertNull("Value should be null for empty array", field.getValue());
+//
+//		// Array
+//		field.setBean(ENTERED_1_2);
+//		Assert.assertTrue("Value should be an array with the two entrie in the array",
+//				Arrays.equals(ENTERED_1_2, field.getValue()));
+//
+//		// List
+//		field.setBean(Arrays.asList(ENTERED_1_2));
+//		Assert.assertTrue("Value should be an array with the two entries in the list",
+//				Arrays.equals(ENTERED_1_2, field.getValue()));
+//
+//		// List with null
+//		List<String> data = new ArrayList<>(Arrays.asList(ENTERED_1_2));
+//		data.add("");
+//		field.setBean(data);
+//		Assert.assertTrue(
+//				"Value should be an array with the two entries in the list without the empty entry",
+//				Arrays.equals(ENTERED_1_2, field.getValue()));
+//
+//		// Just object
+//		field.setBean(TEXT1);
+//		Assert.assertTrue("Value should be an array with the text item", Arrays.equals(ENTERED_1,
+//				field.getValue()));
+//	}
 
 	@Test
 	public void testSetData() {

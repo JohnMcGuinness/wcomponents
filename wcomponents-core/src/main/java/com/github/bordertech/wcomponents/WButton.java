@@ -733,7 +733,7 @@ public class WButton extends WBeanComponent implements Container, Disableable, A
 	/**
 	 * Holds the extrinsic state information of a WButton.
 	 */
-	public static class ButtonModel extends BeanAndProviderBoundComponentModel {
+	public static class ButtonModel extends DataBoundComponentModel {
 
 		/**
 		 * Indicates whether the button has been pressed in the current request/response cycle.

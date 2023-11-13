@@ -298,8 +298,6 @@ public class RadioButtonGroup_Test extends AbstractWComponentTestCase {
 		WRadioButton radio = group.addRadioButton();
 		Assert.assertNotNull("Radio button should not be null", radio);
 		Assert.assertNull("Radio button value should be null", radio.getValue());
-		Assert.assertEquals("Radio button bean property should default to \".\"", ".", radio.
-				getBeanProperty());
 	}
 
 	/**

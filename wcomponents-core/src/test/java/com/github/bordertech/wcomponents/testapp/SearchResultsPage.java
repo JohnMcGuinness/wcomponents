@@ -127,17 +127,17 @@ public class SearchResultsPage extends WContainer {
 		 * Creates a NameRenderer.
 		 */
 		public NameRenderer() {
-			setBeanProperty("name");
+//			setBeanProperty("name");
 			setRenderAsLink(true);
 
 			// When the button is clicked, show the details of the selected row.
-			setAction(new Action() {
-				@Override
-				public void execute(final ActionEvent event) {
-					SearchResultRowBO rowBO = (SearchResultRowBO) getBean();
-					TestApp.getInstance().doDetails(rowBO);
-				}
-			});
+//			setAction(new Action() {
+//				@Override
+//				public void execute(final ActionEvent event) {
+//					SearchResultRowBO rowBO = (SearchResultRowBO) getBean();
+//					TestApp.getInstance().doDetails(rowBO);
+//				}
+//			});
 		}
 	}
 }

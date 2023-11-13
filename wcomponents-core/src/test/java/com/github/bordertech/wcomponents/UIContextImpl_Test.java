@@ -1,6 +1,5 @@
 package com.github.bordertech.wcomponents;
 
-import com.github.bordertech.wcomponents.SimpleBeanBoundTableModel.LevelDetails;
 import com.github.bordertech.wcomponents.WRepeater.SubUIContext;
 import com.github.bordertech.wcomponents.WTable.ExpandMode;
 import com.github.bordertech.wcomponents.util.mock.MockRequest;
@@ -474,140 +473,6 @@ public class UIContextImpl_Test extends AbstractWComponentTestCase {
 	}
 
 	@Test
-	public void testFocusableInWRepeaterNestedBeanBound() {
-		// Beans list
-		final MyBean option1 = new MyBean();
-		final MyBean option2 = new MyBean();
-		final MyBean option3 = new MyBean();
-		final List<MyBean> beans = Arrays.asList(new MyBean[]{option1, option2, option3});
-
-		// Another beans list for nested repeater
-		final String optionA = "A";
-		final String optionB = "B";
-		final String optionC = "C";
-		final List<String> beans2 = Arrays.asList(new String[]{optionA, optionB, optionC});
-
-		// Add beans to Option1 for nested repeater
-		option1.setRows(beans2);
-
-		// Setup the nested repeater
-		WRepeater repeater2 = new WRepeater();
-		repeater2.setBeanProperty("rows");
-		WComponent content2 = new WBeanComponent() {
-			@Override
-			public void handleRequest(final Request request) {
-				super.handleRequest(request);
-				UIContext uic = UIContextHolder.getCurrent();
-
-				if (uic instanceof SubUIContext) {
-					SubUIContext suic = (SubUIContext) uic;
-
-					// Set the component on the second row to have focus
-					if (suic.getRowIndex() == 1) {
-						uic.setFocussed(this, uic);
-					}
-				}
-			}
-		};
-		repeater2.setRepeatedComponent(content2);
-
-		// Setup the top level repeater
-		WRepeater repeater = new WRepeater();
-		WContainer content = new WContainer();
-		content.add(repeater2);
-		repeater.setRepeatedComponent(content);
-
-		// Lock component
-		repeater.setLocked(true);
-
-		// Set the repeater as the "UI" for context
-		UIContext uic = new UIContextImpl();
-		uic.setUI(repeater);
-
-		setActiveContext(uic);
-
-		// Setup the bean list on the top level repeater
-		repeater.setBeanList(beans);
-
-		// ServiceRequest on the repeater (to create the SubUiContexts)
-		MockRequest request = new MockRequest();
-		repeater.serviceRequest(request);
-
-		// Simulate clearing of scratch map
-		uic.clearScratchMap();
-
-		// Get the focused component
-		String focusId = uic.getFocussedId();
-
-		// Get the ID of the component on the second row
-		String rowComponentId = null;
-		try {
-			UIContext suic = repeater.getRowContext(option1);
-			UIContextHolder.pushContext(suic);
-			UIContext suic2 = repeater2.getRowContext(optionB);
-			UIContextHolder.pushContext(suic2);
-			rowComponentId = content2.getId();
-		} finally {
-			UIContextHolder.reset();
-		}
-
-		Assert.assertNotNull("Focus ID should not be null", focusId);
-		Assert.assertEquals("Focus ID should be the ID for the component on the 2nd row",
-				rowComponentId, focusId);
-	}
-
-	@Test
-	public void testFocusableInWTableNestedBeanBound() {
-		// Beans list
-		final MyBean option1 = new MyBean();
-		final MyBean option2 = new MyBean();
-		final List<MyBean> beans = Arrays.asList(new MyBean[]{option1, option2});
-
-		// Another beans list for nested repeater
-		final String optionA = "A";
-		final String optionB = "B";
-		final String optionC = "C";
-		final String optionD = "D";
-		final List<String> beans2 = Arrays.asList(new String[]{optionA, optionB, optionC, optionD});
-
-		// Add beans to Option1 for nested repeater
-		option1.setRows(beans2);
-
-		// Setup the table with an expandable level
-		WTable table = new WTable();
-		LevelDetails lvl = new LevelDetails("rows", MyTable.class, false);
-		table.setTableModel(new SimpleBeanBoundTableModel(new String[]{"."}, lvl));
-		table.addColumn(new WTableColumn("test", new WText()));
-		table.setExpandMode(ExpandMode.CLIENT);
-		table.setBeanProperty(".");
-
-		// Lock component
-		table.setLocked(true);
-
-		// Set the table as the "UI" for context
-		UIContext uic = new UIContextImpl();
-		uic.setUI(table);
-
-		setActiveContext(uic);
-
-		// Setup the bean list on the table
-		table.setBean(beans);
-
-		// ServiceRequest on the repeater (to create the SubUiContexts)
-		// The prepare paint will set the row with the option "D" as focused
-		MockRequest request = new MockRequest();
-		table.preparePaint(request);
-
-		// Simulate clearing of scratch map
-		uic.clearScratchMap();
-
-		// Get the focused component
-		String focusId = uic.getFocussedId();
-
-		Assert.assertNotNull("Focus ID should not be null", focusId);
-	}
-
-	@Test
 	public void testFwkAttributeAccessors() {
 		UIContext uic = createUIContext();
 		String key = "key";
@@ -749,30 +614,6 @@ public class UIContextImpl_Test extends AbstractWComponentTestCase {
 		 */
 		public void setRows(final List<String> rows) {
 			this.rows = rows;
-		}
-	}
-
-	/**
-	 * Table used in expandable level.
-	 */
-	private static final class MyTable extends WTable {
-
-		/**
-		 * Construct. Package protected constructor so can instanciated by WTable as the expandable content.
-		 */
-		MyTable() {
-			setTableModel(new SimpleBeanBoundTableModel(new String[]{"."}));
-			WBeanComponent col = new WBeanComponent() {
-
-				@Override
-				protected void preparePaintComponent(final Request request) {
-					String bean = (String) getData();
-					if ("D".equals(bean)) {
-						setFocussed();
-					}
-				}
-			};
-			addColumn(new WTableColumn("col1", col));
 		}
 	}
 }

@@ -19,9 +19,7 @@ import com.github.bordertech.wcomponents.util.Util;
  * <p>
  * If a radio button needs to be used in a repeating component and will have different values depending on its context,
  * then use the {@link RadioButtonGroup#addRadioButton() addRadioButton()}. Radio buttons used with a {@link WRepeater}
- * will get their value from the "bean" associated to the row in the repeater. By default, the bean property for the
- * radio button will be set to ".", but this can be overridden by calling {@link #setBeanProperty(String)} on the radio
- * button instance.
+ * will get their value from the "bean" associated to the row in the repeater.
  * </p>
  * <p>
  * For the radio button group to work correctly, it is important that each radio button in the group has a unique value.

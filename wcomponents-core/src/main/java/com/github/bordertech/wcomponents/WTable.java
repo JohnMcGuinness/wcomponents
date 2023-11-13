@@ -264,7 +264,6 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 		add(actions);
 
 		repeater.setRepeatedComponent(new WTableRowRenderer(this));
-		repeater.setBeanProvider(new RepeaterRowIdBeanProvider(this));
 	}
 
 	/**
@@ -347,12 +346,6 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 		clearPrevExpandedRows();
 		clearPrevRenderedRows();
 
-		if (tableModel instanceof BeanBoundTableModel) {
-			((BeanBoundTableModel) tableModel).
-					setBeanProvider(new BeanBoundTableModelBeanProvider(this));
-			((BeanBoundTableModel) tableModel).setBeanProperty(".");
-		}
-
 		if (tableModel instanceof ScrollableTableModel) {
 			if (!isPaginated()) {
 				throw new IllegalStateException(
@@ -366,60 +359,6 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 
 		// Flush the repeater's row contexts and scratch maps
 		repeater.reset();
-	}
-
-	/**
-	 * Updates the bean using the table data model's {@link TableModel#setValueAt(Object, List, int)} method.
-	 * <p>
-	 * The update is only applied if the table has been set as editable via {@link #setEditable(boolean)}. Only rows
-	 * that have been rendered are updated.
-	 * </p>
-	 * <p>
-	 * For {@link ScrollableTableModel}, only the rows on the current page are updated.
-	 * </p>
-	 */
-	@Override
-	public void updateBeanValue() {
-		TableModel model = getTableModel();
-
-		// Only apply updates if table was editable
-		if (!isEditable()) {
-			LOG.warn("UpdateBeanValue called for table that is not editable");
-			return;
-		}
-
-		int rows = model.getRowCount();
-		if (rows == 0) {
-			return;
-		}
-
-		int startIndex = 0;
-		int endIndex = rows - 1;
-
-		// For scrollable table model, only update the rows on the current page
-		if (model instanceof ScrollableTableModel) {
-			if (!isPaginated()) {
-				throw new IllegalStateException(
-						"UpdateBeanValue tried to update a ScrollableTableModel with no pagination.");
-			}
-
-			int rowsPerPage = getRowsPerPage();
-			int currentPage = getCurrentPage();
-			// Only update the rows on the current page
-			startIndex = currentPage * rowsPerPage;
-			endIndex = Math.min(startIndex + rowsPerPage, rows) - 1;
-			LOG.warn("UpdateBeanValue only updating the current page for ScrollableTableModel");
-		}
-
-		if (endIndex < startIndex) {
-			return;
-		}
-
-		// Temporarily widen the pagination on the repeater to hold all rows
-		// Calling setBean with a non-null value overrides the DataTableBeanProvider
-		repeater.setBean(getRowIds(startIndex, endIndex, true));
-		updateBeanValueForRenderedRows();
-		repeater.setBean(null);
 	}
 
 	/**
@@ -477,9 +416,7 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 		try {
 			// If the column is a Container then call updateBeanValue to let the column renderer and its children update
 			// the "bean" returned by getValueAt(row, col)
-			if (renderer instanceof Container) {
-				WebUtilities.updateBeanValue(renderer);
-			} else if (renderer instanceof DataBound) { // Update Databound renderer
+			if (renderer instanceof DataBound) { // Update Databound renderer
 				Object oldValue = model.getValueAt(rowIndex, col);
 				Object newValue = ((DataBound) renderer).getData();
 				if (!Util.equals(oldValue, newValue)) {
@@ -510,14 +447,14 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 			return;
 		}
 
-		// The actual component is wrapped in a renderer wrapper, so we have to fetch it from that
+		// The actual component is wrapped in a r´enderer wrapper, so we have to fetch it from that
 		WComponent expandInstance = expandWrapper.getChildAt(0);
 
 		UIContextHolder.pushContext(rowContext);
 		try {
 			// Will apply updates to the "bean" returned by the model for this expanded renderer (ie
 			// getValueAt(rowIndex, -1))
-			WebUtilities.updateBeanValue(expandInstance);
+//			WebUtilities.updateBeanValue(expandInstance);
 		} finally {
 			UIContextHolder.popContext();
 		}
@@ -1681,78 +1618,6 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 	}
 
 	/**
-	 * A bean provider implementation which uses the bean bound to the table.
-	 */
-	private static final class BeanBoundTableModelBeanProvider implements BeanProvider, Serializable {
-
-		private final WTable table;
-
-		/**
-		 * @param table the parent table
-		 */
-		private BeanBoundTableModelBeanProvider(final WTable table) {
-			this.table = table;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			return table.getBeanValue();
-		}
-	}
-
-	/**
-	 * A bean provider implementation which provides beans to the table repeater. This provider takes the table's
-	 * pagination state into account, so that only visible rows are rendered.
-	 */
-	private static final class RepeaterRowIdBeanProvider implements BeanProvider, Serializable {
-
-		private final WTable table;
-
-		/**
-		 * @param table the parent table
-		 */
-		private RepeaterRowIdBeanProvider(final WTable table) {
-			this.table = table;
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			TableModel dataModel = table.getTableModel();
-			int rowCount = dataModel.getRowCount();
-
-			if (rowCount == 0) {
-				return Collections.emptyList();
-			}
-
-			int startIndex = 0;
-			int endIndex = rowCount - 1;
-
-			if (PaginationMode.DYNAMIC == table.getPaginationMode() && table.isPaginated()) {
-				int rowsPerPage = table.getRowsPerPage();
-				int currentPage = table.getCurrentPage();
-				// Only render the rows on the current page
-				// If total row count has changed, calc the new last page
-				startIndex = Math.
-						min(currentPage * rowsPerPage, rowCount - (rowCount % rowsPerPage));
-				endIndex = Math.min(startIndex + rowsPerPage, rowCount) - 1;
-			}
-
-			if (endIndex < startIndex) {
-				// No data
-				return Collections.EMPTY_LIST;
-			}
-
-			return table.getRowIds(startIndex, endIndex, false);
-		}
-	}
-
-	/**
 	 * Determine the row ids for the provided index range.
 	 *
 	 * @param startIndex the startIndex
@@ -1946,7 +1811,7 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 	 * @author Jonathan Austin
 	 * @since 1.0.0
 	 */
-	public static final class WTableComponentModel extends BeanAndProviderBoundComponentModel {
+	public static final class WTableComponentModel extends DataBoundComponentModel {
 
 		/**
 		 * Flag to render column footers.
@@ -2443,16 +2308,6 @@ public class WTable extends WBeanComponent implements Container, AjaxInternalTri
 		 * @param end the ending row index.
 		 */
 		void setCurrentRows(int start, int end);
-	}
-
-	/**
-	 * The BeanBoundTableModel provides a link between a bean (bound to a table), and the table model API.
-	 *
-	 * @author Jonathan Austin
-	 * @since 1.0.0
-	 */
-	public interface BeanBoundTableModel extends TableModel, BeanProviderBound {
-
 	}
 
 	/**

@@ -247,7 +247,7 @@ public class AllComponents extends WApplication {
 	 */
 	private static WList createSampleWList() {
 		WText nameRenderer = new WText();
-		nameRenderer.setBeanProperty("name");
+//		nameRenderer.setBeanProperty("name");
 		WList list = new WList(WList.Type.STACKED);
 		list.setSeparator(WList.Separator.DOT);
 		list.setRenderBorder(false);

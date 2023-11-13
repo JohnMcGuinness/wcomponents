@@ -274,7 +274,7 @@ public class WProgressBar extends WBeanComponent implements AjaxTarget, Labelabl
 	 *
 	 * @author Yiannis Paschalidis
 	 */
-	public static final class WProgressBarModel extends BeanAndProviderBoundComponentModel {
+	public static final class WProgressBarModel extends DataBoundComponentModel {
 
 		private ProgressBarType barType = DEFAULT_TYPE;
 		private int max;

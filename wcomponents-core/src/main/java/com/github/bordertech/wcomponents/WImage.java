@@ -311,7 +311,7 @@ public class WImage extends WBeanComponent implements Targetable, AjaxTarget {
 	/**
 	 * Holds the extrinsic state information of a WImage.
 	 */
-	public static class ImageModel extends BeanAndProviderBoundComponentModel {
+	public static class ImageModel extends DataBoundComponentModel {
 
 		private Image image;
 		private String cacheKey;

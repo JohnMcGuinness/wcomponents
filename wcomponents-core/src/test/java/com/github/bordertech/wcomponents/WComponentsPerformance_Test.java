@@ -45,11 +45,11 @@ public class WComponentsPerformance_Test extends AbstractWComponentTestCase {
 		sendWComponentRequest(app, uic, 0);
 		sendWComponentRequest(app, uic, 1);
 
-		setActiveContext(uic);
-		Assert.assertEquals("Incorrect property1 value", "p1_1",
-				((SimpleFormBean) app.container.getBean()).getProperty1());
-		Assert.assertEquals("Incorrect property2 value", "p2_1",
-				((SimpleFormBean) app.container.getBean()).getProperty2());
+//		setActiveContext(uic);
+//		Assert.assertEquals("Incorrect property1 value", "p1_1",
+//				((SimpleFormBean) app.container.getBean()).getProperty1());
+//		Assert.assertEquals("Incorrect property2 value", "p2_1",
+//				((SimpleFormBean) app.container.getBean()).getProperty2());
 	}
 
 	/**
@@ -192,9 +192,6 @@ public class WComponentsPerformance_Test extends AbstractWComponentTestCase {
 			WTextField property1 = new WTextField();
 			WTextField property2 = new WTextField();
 
-			property1.setBeanProperty("property1");
-			property2.setBeanProperty("property2");
-
 			property1.setIdName("txt1");
 			property2.setIdName("txt2");
 
@@ -206,25 +203,25 @@ public class WComponentsPerformance_Test extends AbstractWComponentTestCase {
 			WButton submit = new WButton("Submit");
 			submit.setIdName("btn");
 
-			submit.setAction(new Action() {
-				@Override
-				public void execute(final ActionEvent event) {
-					WebUtilities.updateBeanValue(container);
-				}
-			});
+//			submit.setAction(new Action() {
+//				@Override
+//				public void execute(final ActionEvent event) {
+//					WebUtilities.updateBeanValue(container);
+//				}
+//			});
 
 			container.add(submit);
 		}
 
-		@Override
-		protected void preparePaintComponent(final Request request) {
-			super.preparePaintComponent(request);
-
-			if (!isInitialised()) {
-				container.setBean(new SimpleFormBean());
-				setInitialised(true);
-			}
-		}
+//		@Override
+//		protected void preparePaintComponent(final Request request) {
+//			super.preparePaintComponent(request);
+//
+//			if (!isInitialised()) {
+//				container.setBean(new SimpleFormBean());
+//				setInitialised(true);
+//			}
+//		}
 	}
 
 	/**

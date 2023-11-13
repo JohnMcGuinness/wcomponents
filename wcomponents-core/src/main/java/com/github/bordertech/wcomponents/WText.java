@@ -192,7 +192,7 @@ public class WText extends WBeanComponent {
 	 * @author Mark Reeves
 	 * @since 1.2.0
 	 */
-	public static class TextModel extends BeanAndProviderBoundComponentModel {
+	public static class TextModel extends DataBoundComponentModel {
 
 		/**
 		 * Indicates if the text should be HTML sanitized. This only needs to be true if the text content is HTML

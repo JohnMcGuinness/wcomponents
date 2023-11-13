@@ -171,7 +171,7 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 	 * The renderer wrapper is responsible for ensuring that the renderer is only used when needed (ie. it is only
 	 * involved in processing of certain rows), and ensuring that data is passed to / from the renderer when required.
 	 */
-	private static final class RendererWrapper extends WContainer implements BeanProvider {
+	private static final class RendererWrapper extends WContainer {
 
 		/**
 		 * The table that this wrapper belongs to.
@@ -205,10 +205,6 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 			try {
 				rendererComponent = rendererClass.newInstance();
 
-				if (rendererComponent instanceof BeanProviderBound) {
-					((BeanProviderBound) rendererComponent).setBeanProvider(this);
-				}
-
 				add(rendererComponent);
 			} catch (Exception e) {
 				LOG.error("Failed to instantiate renderer: " + rendererClass.getName(), e);
@@ -230,10 +226,6 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 			this.rowRenderer = rowRenderer;
 			this.columnIndex = columnIndex;
 			this.renderer = renderer;
-
-			if (renderer instanceof BeanProviderBound) {
-				((BeanProviderBound) renderer).setBeanProvider(this);
-			}
 
 			add(renderer);
 		}
@@ -260,37 +252,6 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 			}
 		}
 
-		/**
-		 * Provides data to a component rendering a column.
-		 *
-		 * @param beanProviderBound the component rendering the column.
-		 * @return a bean value for component that is rendering the specified row/column
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			UIContext uic = UIContextHolder.getCurrent();
-
-			// Make sure we have the correct uic
-			while (uic instanceof SubUIContext && !((SubUIContext) uic).isInContext(
-					(WComponent) beanProviderBound)) {
-				uic = ((SubUIContext) uic).getParentContext();
-			}
-
-			if (!(uic instanceof SubUIContext)) {
-				LOG.error("Unable to handle UIContext type: " + uic.getClass().getName());
-				return null;
-			}
-
-			int row = rowRenderer.getRowIndex((SubUIContext) uic);
-
-			if (columnIndex < 0) {
-				// This is not a column renderer, it must be an additional row renderer
-				TreeTableDataModel dataModel = (TreeTableDataModel) rowRenderer.table.getDataModel();
-				return dataModel.getNodeAtLine(row).getData();
-			} else {
-				return rowRenderer.table.getDataModel().getValueAt(row, columnIndex);
-			}
-		}
 
 		/**
 		 * Some renderers may not be bean provider bound, or not bean-aware. We need to make sure that the data is set
@@ -311,21 +272,17 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 				((Input) renderer).setReadOnly(!model.isCellEditable(row, columnIndex));
 			}
 
-			if (!(renderer instanceof BeanProviderBound)) {
-				Object bean = null;
+			Object bean = null;
 
-				if (columnIndex >= 0) {
-					bean = model.getValueAt(row, columnIndex);
-				} else if (model instanceof TreeTableDataModel) {
-					TreeTableDataModel treeModel = (TreeTableDataModel) model;
-					bean = treeModel.getNodeAtLine(row).getData();
-				}
+			if (columnIndex >= 0) {
+				bean = model.getValueAt(row, columnIndex);
+			} else if (model instanceof TreeTableDataModel) {
+				TreeTableDataModel treeModel = (TreeTableDataModel) model;
+				bean = treeModel.getNodeAtLine(row).getData();
+			}
 
-				if (renderer instanceof BeanBound) {
-					((BeanBound) renderer).setBean(bean);
-				} else if (renderer instanceof DataBound) {
-					((DataBound) renderer).setData(bean);
-				}
+			if (renderer instanceof DataBound) {
+				((DataBound) renderer).setData(bean);
 			}
 		}
 	}
@@ -343,18 +300,14 @@ public final class WDataTableRowRenderer extends WDataRenderer {
 		if (renderer == null) {
 			Class<? extends WComponent> rendererClass = column.getRendererClass();
 
-			if (!(BeanProviderBound.class.isAssignableFrom(rendererClass))
-					&& !(BeanBound.class.isAssignableFrom(rendererClass))
-					&& !(DataBound.class.isAssignableFrom(rendererClass))) {
+			if (!(DataBound.class.isAssignableFrom(rendererClass))) {
 				throw new IllegalArgumentException(
 						"Column renderers must be BeanProvider-, Bean- or Data-Bound");
 			}
 
 			add(new RendererWrapper(this, rendererClass, columnIndex));
 		} else {
-			if (!(renderer instanceof BeanProviderBound)
-					&& !(renderer instanceof BeanBound)
-					&& !(renderer instanceof DataBound)) {
+			if (!(renderer instanceof DataBound)) {
 				throw new IllegalArgumentException(
 						"Column renderers must be BeanProvider-, Bean- or Data-Bound");
 			}

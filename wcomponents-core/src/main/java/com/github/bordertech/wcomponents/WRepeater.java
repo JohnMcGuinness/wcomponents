@@ -71,8 +71,8 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 	}
 
 	/**
-	 * Set the wcomponent instance capable of handling a row. The component must implement at least one of the
-	 * {@link DataBound}, {@link BeanBound} or {@link BeanProviderBound} interfaces. The data entries in the bean list
+	 * Set the wcomponent instance capable of handling a row. The component must implement the
+	 * {@link DataBound} interface. The data entries in the bean list
 	 * passed to this repeater must be compatible with the component.
 	 *
 	 * @param repeatedComponent the component to repeat.
@@ -161,29 +161,6 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 		}
 
 		return Collections.unmodifiableList(beanList);
-	}
-
-	/**
-	 * Override updateBeanValue to update the bean value for all WBeanComponents Updates the bean value with the value
-	 * returned by {@link #getData()}.
-	 */
-	@Override
-	public void updateBeanValue() {
-		List<?> beanList = this.getBeanList();
-		WComponent renderer = getRepeatedComponent();
-
-		for (int i = 0; i < beanList.size(); i++) {
-			Object rowData = beanList.get(i);
-			UIContext rowContext = getRowContext(rowData, i);
-
-			UIContextHolder.pushContext(rowContext);
-
-			try {
-				WebUtilities.updateBeanValue(renderer);
-			} finally {
-				UIContextHolder.popContext();
-			}
-		}
 	}
 
 	// =========================================================================
@@ -416,7 +393,7 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 	/**
 	 * Holds the extrinsic state information of a WRepeater.
 	 */
-	public static class RepeaterModel extends BeanAndProviderBoundComponentModel {
+	public static class RepeaterModel extends DataBoundComponentModel {
 
 		/**
 		 * Map rowIds to their subcontext.
@@ -763,7 +740,7 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 	/**
 	 * Component to hold the repeated component and provide the correct row data.
 	 */
-	public static class WRepeatRoot extends WBeanComponent implements BeanProvider, Container,
+	public static class WRepeatRoot extends WBeanComponent implements Container,
 			NamingContextable {
 
 		/**
@@ -779,33 +756,12 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 		 */
 		public WRepeatRoot(final WRepeater repeater, final WComponent repeatedComponent) {
 			this.repeater = repeater;
-			if (repeatedComponent instanceof BeanProviderBound) {
-				((BeanProviderBound) repeatedComponent).setBeanProvider(this);
-			} else if (!(repeatedComponent instanceof DataBound) && !(repeatedComponent instanceof BeanBound)) {
+			if (!(repeatedComponent instanceof DataBound)) {
 				throw new SystemException(
-						"The repeated component created by the factory must implement the "
-						+ "BeanBound, BeanProviderBound or DataBound interface.");
+						"The repeated component created by the factory must implement the DataBound interface.");
 			}
 
 			this.add(repeatedComponent);
-		}
-
-		/**
-		 * WRepeatRoot will act as a provider for a provider bound repeated component.
-		 *
-		 * @param beanProviderBound expected to be the repeated component.
-		 * @return the Bean for the provider bound component.
-		 */
-		@Override
-		public Object getBean(final BeanProviderBound beanProviderBound) {
-			UIContext uic = UIContextHolder.getCurrent();
-
-			if (uic instanceof SubUIContext) {
-				return repeater.getRowBeanForSubcontext((SubUIContext) uic);
-			} else {
-				LOG.error("Unable to handle UIContext type: " + uic.getClass().getName());
-				return null;
-			}
 		}
 
 		/**
@@ -816,23 +772,14 @@ public class WRepeater extends WBeanComponent implements Container, AjaxTarget, 
 		}
 
 		/**
-		 * Override setData in order to push data to non-{@link BeanProviderBound} renderers each time the data is
-		 * changed.
+		 * Override setData in order to push data to {@link DataBound} renderers each time the data is changed.
 		 *
 		 * @param rowData the data for this row.
 		 */
 		@Override
 		public void setData(final Object rowData) {
-			Object renderer = getRepeatedComponent();
-
-			if (!(renderer instanceof BeanProviderBound)) {
-				if (renderer instanceof BeanBound) {
-					((BeanBound) renderer).setBean(rowData);
-				} else {
-					// Renderer *MUST* be databound
-					((DataBound) renderer).setData(rowData);
-				}
-			}
+			// Renderer *MUST* be databound
+			((DataBound) getRepeatedComponent()).setData(rowData);
 		}
 
 		/**
